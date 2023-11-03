@@ -135,7 +135,7 @@ class CommonFooter extends HTMLElement {
       `;
     }
   }
-  class CommonjS extends HTMLElement {
+  class CommonJs extends HTMLElement {
     constructor() {
       super();
     }
