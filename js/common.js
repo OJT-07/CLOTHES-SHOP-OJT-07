@@ -1,9 +1,9 @@
 class CommonFooter extends HTMLElement {
     constructor() {
-      super();
+        super();
     }
     connectedCallback() {
-      this.innerHTML = `
+        this.innerHTML = `
       
 <link rel="stylesheet" href="../CSS/footer.css">
 <footer class="footer">
@@ -65,14 +65,14 @@ class CommonFooter extends HTMLElement {
 </footer>
       `;
     }
-  }
-  class CommonHeader extends HTMLElement {
+}
+class CommonHeader extends HTMLElement {
     constructor() {
-      super();
+        super();
     }
     connectedCallback() {
-        
-      this.innerHTML = `
+
+        this.innerHTML = `
       <link rel="stylesheet" href="../CSS/header.css">
       <header class="header">
     <div class="container">
@@ -98,17 +98,19 @@ class CommonFooter extends HTMLElement {
                         </li>
                         <li><a href="../blog.html">Blog</a></li>
                         <li><a href="../contact.html">Contacts</a></li>
+                        
+
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-3 col-md-3">
-                <div class="header__nav__option">
-                    <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
-                    <a href="#"><img src="/img/icon/heart.png" alt=""></a>
-                    <a href="#"><img src="/img/icon/cart.png" alt=""> <span>0</span></a>
-                    <div class="price">$0.00</div>
-                </div>
+            <div class="header__nav__option">
+                <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
+                <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
+                <a href="#"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
+                <a href="/Customer/LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket icon_header"></i></a>                    
             </div>
+        </div>
         </div>
         <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
@@ -116,13 +118,13 @@ class CommonFooter extends HTMLElement {
   
       `;
     }
-  }
-  class CommonCss extends HTMLElement {
+}
+class CommonCss extends HTMLElement {
     constructor() {
-      super();
+        super();
     }
     connectedCallback() {
-      this.innerHTML = `
+        this.innerHTML = `
       <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
       <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
       <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
@@ -134,13 +136,13 @@ class CommonFooter extends HTMLElement {
       <script src="../../js/common.js"></script>
       `;
     }
-  }
-  class CommonSidebar extends HTMLElement {
+}
+class CommonSidebar extends HTMLElement {
     constructor() {
-      super();
+        super();
     }
     connectedCallback() {
-      this.innerHTML = `
+        this.innerHTML = `
     <body>
     <section class="shop spad">
         <div class="container">
@@ -321,12 +323,13 @@ class CommonFooter extends HTMLElement {
     <script src="/js/mixitup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
+    <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
 </body>
       `;
     }
-  }
-  customElements.define("common-sidebar", CommonSidebar);
+}
+customElements.define("common-sidebar", CommonSidebar);
 
-  customElements.define("common-css", CommonCss);
-  customElements.define("common-footer", CommonFooter);
-  customElements.define("common-header", CommonHeader);
+customElements.define("common-css", CommonCss);
+customElements.define("common-footer", CommonFooter);
+customElements.define("common-header", CommonHeader);
