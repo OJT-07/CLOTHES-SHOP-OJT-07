@@ -1,5 +1,5 @@
 .header {
-	background: #ffffff;
+	background: #f2dfdb;
 }
 
 .header__top {
@@ -226,3 +226,7 @@
 .canvas__open {
 	display: none;
 }
+
+.icon_header {
+	color: #000;
+ }
