@@ -1,84 +1,84 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    const itemNameInput = document.getElementById("product-name");
-    const itemCategoryInput = document.getElementById("product-category");
-    const itemPriceInput = document.getElementById("product-price");
-    const itemPromotionalPriceInput = document.getElementById(
-      "product-promotional-price"
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  const itemNameInput = document.getElementById("product-name");
+  const itemCategoryInput = document.getElementById("product-category");
+  const itemPriceInput = document.getElementById("product-price");
+  const itemPromotionalPriceInput = document.getElementById(
+    "product-promotional-price"
+  );
+  const itemDescriptionShortInput =
+    document.getElementById("short-description");
+  const itemDescriptionInput = document.getElementById("detail-description");
+  const itemQuantityInput = document.getElementById("quantity");
+  const itemImageInput = document.getElementById("image");
+  const form = document.getElementById("Update-product");
+
+  try {
+    const response = await fetch(
+      `https://web-api-5vrh.onrender.com/api/products/${id}`
     );
-    const itemDescriptionShortInput =
-      document.getElementById("short-description");
-    const itemDescriptionInput = document.getElementById("detail-description");
-    const itemQuantityInput = document.getElementById("quantity");
-    const itemImageInput = document.getElementById("image");
-    const form = document.getElementById("Update-product");
-  
+
+    if (!response.ok) {
+      throw new Error("Unable to fetch data");
+    }
+
+    const data = await response.json();
+    console.log(
+      "🚀 ~ file: Update,js:31 ~ document.addEventListener ~ data:",
+      data.product
+    );
+
+    // Hiển thị thông tin item lên form
+    itemNameInput.value = data.product.name;
+    itemDescriptionInput.value = data.product.description;
+    itemImageInput.value = data.product.image;
+    itemQuantityInput.value = data.product.quantity;
+    itemDescriptionShortInput.value = data.product.shortDescription;
+    itemPriceInput.value = data.product.price;
+    itemCategoryInput.value = data.product.category;
+    itemPromotionalPriceInput.value = data.product.promotionalPrice;
+    // Các trường thông tin khác của item...
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const updatedItem = {
+      _id: id,
+      name: itemNameInput.value,
+      description: itemDescriptionInput.value,
+      image: itemImageInput.value,
+      quantity: itemQuantityInput.value,
+      shortDescription: itemDescriptionShortInput.value,
+      price: itemPriceInput.value,
+      category: itemCategoryInput.value,
+      promotionalPrice: itemPromotionalPriceInput.value,
+    };
+
     try {
       const response = await fetch(
-        `https://web-api-5vrh.onrender.com/api/products/${id}`
+        `https://web-api-5vrh.onrender.com/api/products/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedItem),
+        }
       );
-  
+
       if (!response.ok) {
-        throw new Error("Unable to fetch data");
+        throw new Error("Unable to update data");
       }
-  
+
       const data = await response.json();
-      console.log(
-        "🚀 ~ file: Update,js:31 ~ document.addEventListener ~ data:",
-        data.product
-      );
-  
-      // Hiển thị thông tin item lên form
-      itemNameInput.value = data.product.name;
-      itemDescriptionInput.value = data.product.description;
-      itemImageInput.value = data.product.image;
-      itemQuantityInput.value = data.product.quantity;
-      itemDescriptionShortInput.value = data.product.shortDescription;
-      itemPriceInput.value = data.product.price;
-      itemCategoryInput.value = data.product.category;
-      itemPromotionalPriceInput.value = data.product.promotionalPrice;
-      // Các trường thông tin khác của item...
+      console.log("Item updated:", data);
+      // Xử lý sau khi cập nhật thành công
     } catch (error) {
       console.error("Error:", error);
     }
-  
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-  
-      const updatedItem = {
-        _id: id,
-        name: itemNameInput.value,
-        description: itemDescriptionInput.value,
-        image: itemImageInput.value,
-        quantity: itemQuantityInput.value,
-        shortDescription: itemDescriptionShortInput.value,
-        price: itemPriceInput.value,
-        category: itemCategoryInput.value,
-        promotionalPrice: itemPromotionalPriceInput.value,
-      };
-  
-      try {
-        const response = await fetch(
-          `https://web-api-5vrh.onrender.com/api/products/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedItem),
-          }
-        );
-  
-        if (!response.ok) {
-          throw new Error("Unable to update data");
-        }
-  
-        const data = await response.json();
-        console.log("Item updated:", data);
-        // Xử lý sau khi cập nhật thành công
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    });
   });
+});
