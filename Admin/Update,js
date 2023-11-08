@@ -1,0 +1,54 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search); 
+    const id = urlParams.get('id');
+    console.log("🚀 ~ file: Update,js:4 ~ document.addEventListener ~ id:", id)
+
+    const form = document.getElementById('update-product');
+    const itemNameInput = document.getElementById('product-name');
+    const itemCategoryInput = document.getElementById('product-category');
+    const itemPriceInput = document.getElementById('product-price');
+    const itemPromotionalPriceInput = document.getElementById('product-promotional-price');
+    const itemDescriptionShortInput = document.getElementById('short-description');
+    const itemDescriptionInput = document.getElementById('detail-description');
+    const itemQuantityInput = document.getElementById('quantity');
+    const itemImageInput = document.getElementById('image');
+
+
+    // Lấy thông tin item để update
+    fetch(`https://json-server-api-i5rh.onrender.com/api/products?id=${id}`) // Thay đổi URL API và ID item cần update
+        .then(response => response.json())
+        .then(data => {
+            // Hiển thị thông tin item lên form
+            itemNameInput.value = data.nameProduct;
+            itemDescriptionInput.value = data.description;
+            itemImageInput.value = data.description;
+            itemQuantityInput.value = data.description;
+            itemDescriptionShortInput.value = data.shortDescription;
+            itemPriceInput.value = data.price;
+            itemCategoryInput.value = data.nameCategory;
+            itemPromotionalPriceInput.value = data.promotionalPrice;
+        })
+        .catch(error => console.error('Error:', error));
+    // Xử lý sự kiện submit form
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const updatedItem = {
+            name: itemNameInput.value,
+            description: itemDescriptionInput.value
+        };
+        // Gửi thông tin item cập nhật qua API
+        fetch(`https://json-server-api-i5rh.onrender.com/api/products?id=${id}`), { // Thay đổi URL API và ID item cần update
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedItem)
+        }
+        .then(response => response.json())
+        .then(data => {
+            console.log('Item updated:', data);
+            // Xử lý sau khi cập nhật thành công
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
