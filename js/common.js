@@ -4,7 +4,6 @@ class CommonFooter extends HTMLElement {
     }
     connectedCallback() {
         this.innerHTML = `
-      
 <link rel="stylesheet" href="../CSS/footer.css">
 <footer class="footer">
     <div class="container">
@@ -134,6 +133,9 @@ class CommonCss extends HTMLElement {
       <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
       <link rel="stylesheet" href="/css/style.css" type="text/css">
       <script src="../../js/common.js"></script>
+      <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
+
+
       `;
     }
 }
@@ -323,7 +325,6 @@ class CommonSidebar extends HTMLElement {
     <script src="/js/mixitup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
 </body>
       `;
     }
