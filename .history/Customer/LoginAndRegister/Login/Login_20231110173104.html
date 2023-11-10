@@ -12,7 +12,7 @@
 
         <form action="" method="POST" class="form" id="loginForm">
             <h3 class="heading">Login</h3>
-            <p class="desc">Welcom to Male Fashion shop ❤️</p>
+            <p class="desc">Hello</p>
 
             <div class="spacer"></div>
 
@@ -23,17 +23,12 @@
             </div>
 
             <div class="form-group">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Mật khẩu</label>
                 <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
                 <span class="form-message"></span>
             </div>
 
             <button class="form-submit" type="submit">Login</button>
-
-            <div class="redirect-page">Not yet member? <a href="/Customer/LoginAndRegister/Register/Register.html">Signup now</a></div>
-            <div class="redirect-page">Return
-                <a href="/Customer/HomePage/Index.html">home page</a>
-            </div>
         </form>
 
     </div>
@@ -77,30 +72,6 @@
     </script>
 
     <script src="/Customer/LoginAndRegister/Login/Login.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mong muốn của chúng ta
-            Validator({
-                form: '#loginForm',
-                formGroupSelector: '.form-group',
-                errorSelector: '.form-message',
-                rules: [
-                    Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
-                    Validator.isEmail('#email'),
-                    Validator.minLength('#password', 6),
-                    Validator.isRequired('#password_confirmation'),
-                    Validator.isConfirmed('#password_confirmation', function() {
-                        return document.querySelector('#form-1 #password').value;
-                    }, 'Mật khẩu nhập lại không chính xác')
-                ],
-                onSubmit: function(data) {
-                    // Call API
-                    console.log(data);
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
