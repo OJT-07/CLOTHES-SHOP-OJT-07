@@ -76,11 +76,19 @@
     document.addEventListener("DOMContentLoaded", function () {
       const productList = document.getElementById("product-list");
       const apiUrl = "http://localhost:4001/api/products";
-      fetch(apiUrl)
-        .then((response) => response.json())
+      fetch(apiUrl, {
+        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
         .then((data) => {
           console.log(data);
-          data.product.forEach((product) => {
+          data.products.forEach((product) => {
             const productItem = document.createElement("div");
             productItem.className = "col-lg-4 col-md-6 col-sm-6";
             productItem.innerHTML = `
