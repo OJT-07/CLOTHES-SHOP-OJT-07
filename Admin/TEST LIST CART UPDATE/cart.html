@@ -17,19 +17,32 @@
               <th>Delete Product</th>
             </tr>
           </thead>
-          <tbody id="cart-items">
-            
-          </tbody>
+          <tbody id="cart-items"></tbody>
         </table>
         <div class="total">
           <h3>Total: <span id="total-quantity">0</span></h3>
           <h3>Total value: $<span id="total-price">0</span></h3>
         </div>
         <tr class="checkoutrow">
-          <td colspan="5" class="checkout"><button id="submitbtn">Checkout</button></td>
+          <td colspan="5" class="checkout">
+            <button id="submitbtn">Checkout</button>
+          </td>
         </tr>
       </div>
     </section>
+    <script>
+      (async () => {
+        const userId = "654dab8ad905f0e6b3a2ced5";
+        const response = await fetch(
+          `http://localhost:4001/api/carts/${userId}`,
+          {
+            method: "GET",
+          }
+        );
+        const carts_item = await response.json();
+        console.log("🚀 ~ file: cart.html:43 ~ carts_item:", carts_item);
+      })();
+    </script>
     <script type="text/javascript" src="/cart.js"></script>
   </body>
 </html>
