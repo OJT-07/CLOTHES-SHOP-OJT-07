@@ -21,98 +21,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-3">
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                  <a
-                    class="nav-link active"
-                    data-toggle="tab"
-                    href="#tabs-1"
-                    role="tab"
-                  >
-                    <div
-                      class="product__thumb__pic set-bg"
-                      data-setbg="img/shop-details/thumb-1.png"
-                    ></div>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#tabs-2"
-                    role="tab"
-                  >
-                    <div
-                      class="product__thumb__pic set-bg"
-                      data-setbg="../../img/shop-details/thumb-2.png"
-                    ></div>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#tabs-3"
-                    role="tab"
-                  >
-                    <div
-                      class="product__thumb__pic set-bg"
-                      data-setbg="../../img/shop-details/thumb-3.png"
-                    ></div>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    data-toggle="tab"
-                    href="#tabs-4"
-                    role="tab"
-                  >
-                    <div
-                      class="product__thumb__pic set-bg"
-                      data-setbg="../../img/shop-details/thumb-4.png"
-                    >
-                      <i class="fa fa-play"></i>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-6 col-md-9">
+            <div style="margin: auto">
               <div class="tab-content">
                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                  <div class="product__details__pic__item">
+                  <div class="product__details__pic__item" id="product-image">
                     <img
                       src="../../img/shop-details/product-big-2.png"
                       alt=""
                     />
-                  </div>
-                </div>
-                <div class="tab-pane" id="tabs-2" role="tabpanel">
-                  <div class="product__details__pic__item">
-                    <img
-                      src="../../img/shop-details/product-big-3.png"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="tab-pane" id="tabs-3" role="tabpanel">
-                  <div class="product__details__pic__item">
-                    <img src="../../img/shop-details/product-big.png" alt="" />
-                  </div>
-                </div>
-                <div class="tab-pane" id="tabs-4" role="tabpanel">
-                  <div class="product__details__pic__item">
-                    <img
-                      src="../../img/shop-details/product-big-4.png"
-                      alt=""
-                    />
-                    <a
-                      href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1"
-                      class="video-popup"
-                      ><i class="fa fa-play"></i
-                    ></a>
                   </div>
                 </div>
               </div>
@@ -125,24 +41,17 @@
           <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
               <div class="product__details__text">
-                <h4>Hooded thermal anorak</h4>
-                <div class="rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span> - 5 Reviews</span>
-                </div>
-                <h3>$270.00 <span>70.00</span></h3>
-                <p>
+                <h4 id="product-name">Hooded thermal anorak</h4>
+
+                <h3 id="product-price">$0</h3>
+                <p id="product-subdescription">
                   Coat with quilted lining and an adjustable hood. Featuring
                   long sleeves with adjustable cuff tabs, adjustable asymmetric
                   hem with elastic side tabs and a front zip fastening with
                   placket.
                 </p>
                 <div class="product__details__option">
-                  <div class="product__details__option__size">
+                  <div class="product__details__option__size" id="product-size">
                     <span>Size:</span>
                     <label for="xxl"
                       >xxl
@@ -161,7 +70,10 @@
                       <input type="radio" id="sm" />
                     </label>
                   </div>
-                  <div class="product__details__option__color">
+                  <div
+                    class="product__details__option__color"
+                    id="product-color"
+                  >
                     <span>Color:</span>
                     <label class="c-1" for="sp-1">
                       <input type="radio" id="sp-1" />
@@ -183,25 +95,21 @@
                 <div class="product__details__cart__option">
                   <div class="quantity">
                     <div class="pro-qty">
-                      <input type="text" value="1" />
+                      <input type="text" value="1" id="quantity" />
                     </div>
                   </div>
                   <a href="#" class="primary-btn">add to cart</a>
                 </div>
-                <div class="product__details__btns__option">
-                  <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                  <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
-                </div>
+
                 <div class="product__details__last__option">
-                  <h5><span>Guaranteed Safe Checkout</span></h5>
-                  <img
-                    src="../../img/shop-details/details-payment.png"
-                    alt=""
-                  />
                   <ul>
-                    <li><span>SKU:</span> 3812912</li>
-                    <li><span>Categories:</span> Clothes</li>
-                    <li><span>Tag:</span> Clothes, Skin, Body</li>
+                    <li>
+                      <span>SKU:</span> <span id="product-id">12221</span>
+                    </li>
+                    <span style="display: inline"
+                      >Categories:
+                      <li id="category" value="" style="display: inline"></li
+                    ></span>
                   </ul>
                 </div>
               </div>
@@ -223,26 +131,18 @@
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane active" id="tabs-5" role="tabpanel">
-                    <div class="product__details__tab__content">
-                      <p class="note">
-                        Nam tempus turpis at metus scelerisque placerat nulla
-                        deumantos solicitud felis. Pellentesque diam dolor,
-                        elementum etos lobortis des mollis ut risus. Sedcus
-                        faucibus an sullamcorper mattis drostique des commodo
-                        pharetras loremos.
-                      </p>
-                      <div class="product__details__tab__content__item">
-                        <h5>Products Infomation</h5>
-                        <p>
-                          A Pocket PC is a handheld computer, which features
-                          many of the same capabilities as a modern PC.
-                        </p>
-                        <p>
-                          As is the case with any new technology product, the
-                          cost of a Pocket PC was substantial during it’s early
-                          release.
-                        </p>
-                      </div>
+                    <div
+                      class="product__details__tab__content"
+                      id="product-description"
+                    >
+                      A Pocket PC is a handheld computer, which features many of
+                      the same capabilities as a modern PC. As is the case with
+                      any new technology product, the cost of a Pocket PC was
+                      substantial during it’s early release. Lorem ipsum dolor
+                      sit amet, consectetur adipisicing elit. Laboriosam
+                      reiciendis aut, distinctio non explicabo minima ullam
+                      iusto beatae aliquam facere assumenda quia, repudiandae
+                      et. Mollitia beatae ipsum dolore eos quis!
                     </div>
                   </div>
                 </div>
@@ -252,6 +152,158 @@
         </div>
       </div>
     </section>
+
+    <script>
+      (async function productDetail() {
+        // Lấy URL hiện tại
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+
+        try {
+          const response = await fetch(
+            `http://localhost:4001/api/products/${id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const data = await response.json();
+
+          const product = data.product;
+
+          // Gán dữ liệu từ response vào các thẻ HTML tương ứng
+          document.getElementById(
+            "product-image"
+          ).innerHTML = `<img src="${product.image}" alt="Product Image" style="height: 500px; width: 300px;">`;
+          document.getElementById(
+            "product-name"
+          ).innerHTML = `<h4>${product.name}</h4>`;
+          document.getElementById(
+            "product-price"
+          ).innerText = `$${product.price}`;
+          document.getElementById(
+            "category"
+          ).innerText += ` ${product.category}`;
+          document.getElementById("product-id").innerText = product._id;
+          document.getElementById("product-description").innerText =
+            product.description;
+
+          document.getElementById("product-subdescription").innerText =
+            product.subDescription;
+
+          const colors = product.color; // Assuming product.color is an array of color codes
+
+          const colorDiv = document.getElementById("product-color");
+          // Clear the content in case there's any existing content
+          colorDiv.innerHTML = "<span>Color:</span>";
+
+          colors.forEach((colorCode) => {
+            colorDiv.innerHTML += `
+        <label class="color-label" style="background-color: ${colorCode};" for="sp-${colorCode}">
+          <input type="radio" id="sp-${colorCode}" name="color" value="${colorCode}" />
+        </label>
+      `;
+          });
+
+          const sizes = product.size; // Assuming product.size is already an array
+
+          const sizeDiv = document.getElementById("product-size");
+          // Clear the content in case there's any existing content
+          sizeDiv.innerHTML = "<span>Size:</span>";
+
+          sizes.forEach((size) => {
+            sizeDiv.innerHTML += `
+              <label for="${size.toLowerCase()}"
+                class="${size.toLowerCase() === "xl" ? "active" : ""}"
+                onclick="selectSize(this)">
+                ${size.toLowerCase()}
+                <input type="radio" id="${size.toLowerCase()}" name="size" value="${size}"/>
+              </label>
+            `;
+          });
+
+          const addToCartButton = document.querySelector(".primary-btn");
+          addToCartButton.addEventListener("click", async function (event) {
+            event.preventDefault();
+
+            const user = JSON.parse(localStorage.getItem("user"));
+            // Get selected values
+            const selectedColor = document.querySelector(
+              'input[name="color"]:checked'
+            );
+
+            const selectedSize = document.querySelector(
+              'input[name="size"]:checked'
+            );
+            const quantity = document.getElementById("quantity").value;
+            const productId = document.getElementById("product-id").innerText;
+            const category = document.getElementById("category").innerText;
+
+            // Check if values are selected
+            if (!selectedColor || !selectedSize) {
+              alert("Please select color and size before adding to cart.");
+              return;
+            }
+
+            // Prepare data object
+            const itemData = {
+              color: selectedColor.value,
+              size: selectedSize.value,
+              quantity: quantity,
+              _id: productId,
+              category: category,
+              userId: "654daad881aeef03266a6de4",
+            };
+
+            // Send the data to the server (replace this with your actual endpoint)
+            try {
+              const response = await fetch("http://localhost:4001/api/carts", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(itemData),
+              });
+              console.log(
+                "🚀 ~ file: productDetail.html:273 ~ response:",
+                response
+              );
+
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+            } catch (error) {
+              console.error("An error occurred:", error);
+            }
+          });
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      })();
+    </script>
+
+    <script>
+      function selectSize(label) {
+        // Remove "active" class from all size labels
+        console.log("Size label clicked:", label);
+        document
+          .querySelectorAll(".product__details__option__size label")
+          .forEach((el) => {
+            el.classList.remove("active");
+          });
+
+        // Add "active" class to the clicked label
+        label.classList.add("active");
+      }
+    </script>
+
     <!-- Shop Details Section End -->
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -266,5 +318,5 @@
   </body>
   <footer>
     <common-footer></common-footer>
-</footer>
+  </footer>
 </html>
