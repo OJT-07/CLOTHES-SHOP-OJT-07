@@ -1,4 +1,4 @@
-// ---------------------- Validation ---------------------- 
+// Đối tượng `Validator`
 function Validator(options) {
   function getParent(element, selector) {
       while (element.parentElement) {
@@ -11,10 +11,12 @@ function Validator(options) {
 
   var selectorRules = {};
 
+  // Hàm thực hiện validate
   function validate(inputElement, rule) {
       var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
       var errorMessage;
 
+      // Lấy ra các rules của selector
       var rules = selectorRules[rule.selector];
       
       // Lặp qua từng rule & kiểm tra
@@ -130,6 +132,12 @@ function Validator(options) {
 
 }
 
+
+
+// Định nghĩa rules
+// Nguyên tắc của các rules:
+// 1. Khi có lỗi => Trả ra message lỗi
+// 2. Khi hợp lệ => Không trả ra cái gì cả (undefined)
 Validator.isRequired = function (selector, message) {
   return {
       selector: selector,
@@ -166,58 +174,3 @@ Validator.isConfirmed = function (selector, getConfirmValue, message) {
       }
   }
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    Validator({
-        form: '#loginForm',
-        formGroupSelector: '.form-group',
-        errorSelector: '.form-message',
-        rules: [
-            Validator.isEmail('#email'),
-            Validator.minLength('#password')
-        ],
-        onSubmit: function(data) {
-            console.log(data);
-        }
-    });
-});
-
-// ---------------------- Fetch API ---------------------- 
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const apiUrl = 'http://localhost:4001/api/users/login';
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email,
-                password
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        var jsonString = JSON.stringify(data);
-
-        localStorage.setItem("user", jsonString); 
-
-        if (data.role === "admin") {
-            window.location.href = '/Customer/Product/productList.html ';
-        } else {
-            window.location.href = '/Customer/HomePage/Index.html ';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-});

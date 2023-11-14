@@ -208,11 +208,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         }
 
         const data = await response.json();
-        var jsonString = JSON.stringify(data);
-
-        localStorage.setItem("user", jsonString); 
-
-        if (data.role === "admin") {
+        console.log(data);
+        
+        if (data === "admin") {
             window.location.href = '/Customer/Product/productList.html ';
         } else {
             window.location.href = '/Customer/HomePage/Index.html ';

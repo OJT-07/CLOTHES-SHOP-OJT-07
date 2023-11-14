@@ -208,15 +208,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         }
 
         const data = await response.json();
-        var jsonString = JSON.stringify(data);
 
-        localStorage.setItem("user", jsonString); 
+        localStorage.setItem("userId", data._id);
+        localStorage.setItem("role", data.role);
 
-        if (data.role === "admin") {
-            window.location.href = '/Customer/Product/productList.html ';
-        } else {
-            window.location.href = '/Customer/HomePage/Index.html ';
-        }
+        // if (data.role === "admin") {
+        //     window.location.href = '/Customer/Product/productList.html ';
+        // } else {
+        //     window.location.href = '/Customer/HomePage/Index.html ';
+        // }
     } catch (error) {
         console.error('Error:', error);
     }
