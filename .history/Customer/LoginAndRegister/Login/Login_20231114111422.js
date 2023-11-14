@@ -212,11 +212,11 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
         localStorage.setItem("user", jsonString); 
 
-        if (data.role === "admin") {
-            window.location.href = '/Customer/Product/productList.html ';
-        } else {
-            window.location.href = '/Customer/HomePage/Index.html ';
-        }
+        // if (data.role === "admin") {
+        //     window.location.href = '/Customer/Product/productList.html ';
+        // } else {
+        //     window.location.href = '/Customer/HomePage/Index.html ';
+        // }
     } catch (error) {
         console.error('Error:', error);
     }
