@@ -106,7 +106,10 @@
                     <li>
                       <span>SKU:</span> <span id="product-id">12221</span>
                     </li>
-                    <li id="category" value=""><span>Categories:</span></li>
+                    <span style="display: inline"
+                      >Categories:
+                      <li id="category" value="" style="display: inline"></li
+                    ></span>
                   </ul>
                 </div>
               </div>
@@ -155,7 +158,6 @@
         // Lấy URL hiện tại
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
-        console.log(id); // Hiển thị ID từ tham số 'id'
 
         try {
           const response = await fetch(
@@ -175,10 +177,7 @@
           const data = await response.json();
 
           const product = data.product;
-          console.log(
-            "🚀 ~ file: productDetail.html:169 ~ productDetail ~ product:",
-            product
-          );
+
           // Gán dữ liệu từ response vào các thẻ HTML tương ứng
           document.getElementById(
             "product-image"
@@ -221,20 +220,25 @@
 
           sizes.forEach((size) => {
             sizeDiv.innerHTML += `
-        <label for="${size.toLowerCase()}">${size.toLowerCase()}
-          <input type="radio" id="${size.toLowerCase()}" name="size" value="${size}"/>
-        </label>
-      `;
+              <label for="${size.toLowerCase()}"
+                class="${size.toLowerCase() === "xl" ? "active" : ""}"
+                onclick="selectSize(this)">
+                ${size.toLowerCase()}
+                <input type="radio" id="${size.toLowerCase()}" name="size" value="${size}"/>
+              </label>
+            `;
           });
 
           const addToCartButton = document.querySelector(".primary-btn");
           addToCartButton.addEventListener("click", async function (event) {
             event.preventDefault();
 
+            const user = JSON.parse(localStorage.getItem("user"));
             // Get selected values
             const selectedColor = document.querySelector(
               'input[name="color"]:checked'
             );
+
             const selectedSize = document.querySelector(
               'input[name="size"]:checked'
             );
@@ -255,29 +259,26 @@
               quantity: quantity,
               _id: productId,
               category: category,
-              userId: "654a2eb6a017069f884a1bfc",
+              userId: "654daad881aeef03266a6de4",
             };
-            console.log(
-              "🚀 ~ file: productDetail.html:261 ~ itemData:",
-              itemData
-            );
 
             // Send the data to the server (replace this with your actual endpoint)
             try {
-              const response = await fetch("YOUR_CART_API_ENDPOINT", {
+              const response = await fetch("http://localhost:4001/api/carts", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(itemData),
               });
+              console.log(
+                "🚀 ~ file: productDetail.html:273 ~ response:",
+                response
+              );
 
               if (!response.ok) {
                 throw new Error("Network response was not ok");
               }
-
-              // Handle successful response (e.g., display a success message)
-              console.log("Item added to cart successfully!");
             } catch (error) {
               console.error("An error occurred:", error);
             }
@@ -286,6 +287,21 @@
           console.error("An error occurred:", error);
         }
       })();
+    </script>
+
+    <script>
+      function selectSize(label) {
+        // Remove "active" class from all size labels
+        console.log("Size label clicked:", label);
+        document
+          .querySelectorAll(".product__details__option__size label")
+          .forEach((el) => {
+            el.classList.remove("active");
+          });
+
+        // Add "active" class to the clicked label
+        label.classList.add("active");
+      }
     </script>
 
     <!-- Shop Details Section End -->
