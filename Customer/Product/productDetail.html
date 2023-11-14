@@ -95,7 +95,7 @@
                 <div class="product__details__cart__option">
                   <div class="quantity">
                     <div class="pro-qty">
-                      <input type="text" value="1" />
+                      <input type="text" value="1" id="quantity" />
                     </div>
                   </div>
                   <a href="#" class="primary-btn">add to cart</a>
@@ -106,7 +106,7 @@
                     <li>
                       <span>SKU:</span> <span id="product-id">12221</span>
                     </li>
-                    <li><span>Categories:</span> Clothes</li>
+                    <li id="category" value=""><span>Categories:</span></li>
                   </ul>
                 </div>
               </div>
@@ -149,6 +149,7 @@
         </div>
       </div>
     </section>
+
     <script>
       (async function productDetail() {
         // Lấy URL hiện tại
@@ -158,7 +159,7 @@
 
         try {
           const response = await fetch(
-            `https://web-api-5vrh.onrender.com/api/products/${id}`,
+            `http://localhost:4001/api/products/${id}`,
             {
               method: "GET",
               headers: {
@@ -188,6 +189,9 @@
           document.getElementById(
             "product-price"
           ).innerText = `$${product.price}`;
+          document.getElementById(
+            "category"
+          ).innerText += ` ${product.category}`;
           document.getElementById("product-id").innerText = product._id;
           document.getElementById("product-description").innerText =
             product.description;
@@ -195,18 +199,88 @@
           document.getElementById("product-subdescription").innerText =
             product.subDescription;
 
-          document.getElementById("product-color").innerText = product.color;
+          const colors = product.color; // Assuming product.color is an array of color codes
 
-          const sizes = product.size.split(","); // If sizes are a comma-separated string, convert to an array
+          const colorDiv = document.getElementById("product-color");
+          // Clear the content in case there's any existing content
+          colorDiv.innerHTML = "<span>Color:</span>";
+
+          colors.forEach((colorCode) => {
+            colorDiv.innerHTML += `
+        <label class="color-label" style="background-color: ${colorCode};" for="sp-${colorCode}">
+          <input type="radio" id="sp-${colorCode}" name="color" value="${colorCode}" />
+        </label>
+      `;
+          });
+
+          const sizes = product.size; // Assuming product.size is already an array
+
           const sizeDiv = document.getElementById("product-size");
           // Clear the content in case there's any existing content
           sizeDiv.innerHTML = "<span>Size:</span>";
+
           sizes.forEach((size) => {
             sizeDiv.innerHTML += `
-            <label for="${size.toLowerCase()}">${size.toLowerCase()}
-              <input type="radio" id="${size.toLowerCase()}" />
-            </label>
-          `;
+        <label for="${size.toLowerCase()}">${size.toLowerCase()}
+          <input type="radio" id="${size.toLowerCase()}" name="size" value="${size}"/>
+        </label>
+      `;
+          });
+
+          const addToCartButton = document.querySelector(".primary-btn");
+          addToCartButton.addEventListener("click", async function (event) {
+            event.preventDefault();
+
+            // Get selected values
+            const selectedColor = document.querySelector(
+              'input[name="color"]:checked'
+            );
+            const selectedSize = document.querySelector(
+              'input[name="size"]:checked'
+            );
+            const quantity = document.getElementById("quantity").value;
+            const productId = document.getElementById("product-id").innerText;
+            const category = document.getElementById("category").innerText;
+
+            // Check if values are selected
+            if (!selectedColor || !selectedSize) {
+              alert("Please select color and size before adding to cart.");
+              return;
+            }
+
+            // Prepare data object
+            const itemData = {
+              color: selectedColor.value,
+              size: selectedSize.value,
+              quantity: quantity,
+              _id: productId,
+              category: category,
+              userId: "654a2eb6a017069f884a1bfc",
+            };
+            console.log(
+              "🚀 ~ file: productDetail.html:261 ~ itemData:",
+              itemData
+            );
+
+            // Send the data to the server (replace this with your actual endpoint)
+            try {
+              const response = await fetch("YOUR_CART_API_ENDPOINT", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(itemData),
+              });
+
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+
+              // Handle successful response (e.g., display a success message)
+              console.log("Item added to cart successfully!");
+            } catch (error) {
+              console.error("An error occurred:", error);
+            }
           });
         } catch (error) {
           console.error("An error occurred:", error);
