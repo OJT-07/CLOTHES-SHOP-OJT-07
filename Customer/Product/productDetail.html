@@ -234,6 +234,7 @@
             event.preventDefault();
 
             const user = JSON.parse(localStorage.getItem("user"));
+            console.log("🚀 ~ file: productDetail.html:237 ~ user:", user._id);
             // Get selected values
             const selectedColor = document.querySelector(
               'input[name="color"]:checked'
@@ -259,7 +260,7 @@
               quantity: quantity,
               _id: productId,
               category: category,
-              userId: "654daad881aeef03266a6de4",
+              userId: user._id,
             };
 
             // Send the data to the server (replace this with your actual endpoint)
