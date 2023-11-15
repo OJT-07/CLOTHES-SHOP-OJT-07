@@ -211,6 +211,30 @@
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
     <script>
+        // Function to handle adding a product to the cart
+        const addToCart = (productId) => {
+            console.log(`${productId}`);
+            const user = JSON.parse(localStorage.getItem("user"));
+            //Make a POST request to your cart API endpoint
+            fetch('http://localhost:4001/api/carts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    _id: productId,
+                    userId: user._id,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Product added to cart:', data);
+                // You can add any additional logic here, such as updating the UI to reflect the added item.
+            })
+            .catch(error => {
+                console.error('Error adding product to cart:', error);
+            });
+        };
         // Fetch products from the API
         const productListContainer = document.getElementById('productList');
         const apiUrl ="http://localhost:4001/api/products";
@@ -242,8 +266,8 @@
                             </div>
                             <div class="product__item__text">
                                 <h6>${product.name}</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
                               
+                               <a href="#" class="add-cart" onclick="addToCart('${product._id}')">+ Add To Cart</a>
                                
                                 <h5>${product.price}</h5>
                                 
