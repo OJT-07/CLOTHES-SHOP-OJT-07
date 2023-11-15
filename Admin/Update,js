@@ -1,0 +1,137 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const colorInput = document.getElementById('colorInput');
+    colorInput.addEventListener('input', function() {
+        const inputValues = colorInput.value;
+        colorsArray = inputValues.split(',').map(color => color.trim());
+        console.log(colorsArray);
+    });
+
+    const sizeInput = document.getElementById('sizeInput');
+    sizeInput.addEventListener('input', function() {
+        const inputValues = sizeInput.value;
+        sizesArray = inputValues.split(',').map(size => size.trim());
+        console.log(sizesArray);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  const itemNameInput = document.getElementById("product-name");
+  const itemCategoryInput = document.getElementById("product-category");
+  const itemPriceInput = document.getElementById("product-price");
+  
+  const itemDescriptionShortInput =
+    document.getElementById("short-description");
+  const itemDescriptionInput = document.getElementById("detail-description");
+  const colorInput = document.getElementById("colorInput")
+  const itemQuantityInput = document.getElementById("quantity");
+  const itemSizeInput = document.getElementById("sizeInput");
+  const itemImageInput = document.getElementById("image");
+  const imagePreview = document.getElementById("image-preview"); // Added this line
+  const form = document.getElementById("Update-product");
+
+  try {
+    const response = await fetch(
+      `http://localhost:4001/api/products/${id}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Unable to fetch data");
+    }
+
+    const data = await response.json();
+    console.log("Product data:", data.product);
+
+    // Display information on the form
+    itemNameInput.value = data?.product?.name;
+    itemCategoryInput.value = data?.product?.category;
+    itemPriceInput.value = data?.product?.price;
+    itemDescriptionShortInput.value = data?.product?.subDescription;
+    itemDescriptionInput.value = data?.product?.description;
+    itemQuantityInput.value = data?.product?.quantity; 
+    itemSizeInput.value = data?.product?.size;
+    colorInput.value = data?.product?.color;
+    itemImageInput.value = data?.product?.image;
+    imagePreview.src = data?.product?.image;
+     
+
+  } catch (error) {
+    console.error("Error:", error);
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const updatedItem = {
+      _id: id,
+      name: itemNameInput.value,
+      category: itemCategoryInput.value,
+      price: itemPriceInput.value,
+    
+      shortDescription: itemDescriptionShortInput.value,
+      description: itemDescriptionInput.value,
+      quantity: itemQuantityInput.value,
+      size: itemSizeInput.value.split(',').map(color => color.trim()),
+      color: colorInput.value.split(',').map(color => color.trim()), 
+      image: itemImageInput.value,
+
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:4001/api/products/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedItem),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Unable to update data");
+      }
+
+      const data = await response.json();
+      console.log("Item updated:", data);
+      // Handle success after updating
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+});
+
+function updateImageValue(inputElement) {
+  var imageUrl = inputElement.value;
+  var holder = document.getElementById('holder');
+  holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
+}
+function chooseImage() {
+  var choice = prompt("Chọn 1 để nhập đường dẫn hình ảnh, chọn 2 để chọn tệp tin");
+  if (choice === '1') {
+      var imageUrl = prompt("Nhập đường dẫn hình ảnh hoặc link"); 
+      if (imageUrl !== null && imageUrl !== "") {
+          document.getElementById('imageUrl').value = imageUrl;
+          var holder = document.getElementById('holder');
+          holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
+      }
+  } else if (choice === '2') {
+      document.getElementById('imageFile').click();
+  }
+}
+
+function updateImageFileValue(inputElement) {
+  var file = inputElement.files[0];
+  var reader = new FileReader();
+
+  reader.onload = function() {
+      var imageUrl = reader.result;
+      var holder = document.getElementById('holder');
+      holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
+      document.getElementById('imageUrl').value = imageUrl;
+  }
+
+  reader.readAsDataURL(file);
+}
