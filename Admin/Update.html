@@ -29,26 +29,68 @@
                             <input class="form-control" type="text" placeholder="Enter name product" name="nameProduct" id="product-name">
                         </div>
                         <div class="form-group">
-                            <label>Name Category</label>
-                            <input class="form-control" type="text" placeholder="Enter Category" name="nameCategory" id="product-category">
+                            <label>Name Category </label>
+                            <select class="form-control" name="nameCategory" id="nameCategory">
+                                <option value="T-shirt">T-shirt</option>
+                                <option value="Shirt">Shirt</option>
+                                <option value="Bags">Bags</option>
+                                <option value="Pants">Pants</option>
+                                <option value="Jacket">Jacket</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                         <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-3">
                                 <label>Price</label>
-                                <input class="form-control" v-model="product.price" type="number" name="price" id="product-price">
+                                <input class="form-control"id="product-price" type="number" name="price">
                             </div>
-
-
-                          <div class="form-group col-6">
+                            <div class="form-group col-4">
                                 <label>Color</label>
                                 <input id="colorInput" class="form-control" type="text" name="colors"
                                     placeholder="Enter colors separated by commas">
                             </div>
-                            
-                        <div class="form-group col-6">
-                                <label>Size</label>
-                                <input id="sizeInput" class="form-control" type="text" name="size" placeholder="Enter sizes ">
+                            <div class="form-group col-2">
+                                <div>
+                                    <label>Select a color:
+                                </label>
+                                <input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
+                                </div>
                             </div>
+                            <div class="form-group col-3">
+                                <button id="removeLastColorButton" class="removeColor">Remove Pre</button>
+                                <button id="removeAllColorButton">Remove All</button>
+                            </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label>Size</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="output-input" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group col-4">
+                                    <div id="sizeDropArea" class="droppable" ondrop="dropSize(event)"
+                                        ondragover="allowDrop(event)">
+                                        <input type="checkbox" id="item1" class="draggable-item" draggable="true"
+                                            ondragstart="drag(event)" onclick="updateInput(this)">
+                                        <label for="item1">S</label>
+    
+                                        <input type="checkbox" id="item2" class="draggable-item" draggable="true"
+                                            ondragstart="drag(event)" onclick="updateInput(this)">
+                                        <label for="item2">M</label>
+    
+                                        <input type="checkbox" id="item2" class="draggable-item" draggable="true"
+                                            ondragstart="drag(event)" onclick="updateInput(this)">
+                                        <label for="item2">L</label>
+    
+                                        <input type="checkbox" id="item2" class="draggable-item" draggable="true"
+                                            ondragstart="drag(event)" onclick="updateInput(this)">
+                                        <label for="item2">XL</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
 
 
                         </div>
@@ -64,11 +106,11 @@
                                 name="detail_description" placeholder="Enter a detailed product description"
                                 type="text" id="detail-description"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-4">
-                                <label>Quantity</label>
-                                <input class="form-control" v-model="product.quantity" type="number" name="quantity" id="quantity">
-                            </div>
+                                <!-- <div class="row">
+                                    <div class="form-group col-4">
+                                        <label>Quantity</label>
+                                        <input class="form-control" v-model="product.quantity" type="number" name="quantity" id="quantity">
+                                    </div> -->
                             <!-- <div class="form-group col-8">
                                 <label>Status</label>
                                 <select v-model="product.is_block" class="form-control" name="status">
