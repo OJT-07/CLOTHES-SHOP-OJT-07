@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="xx">
+
+<head>
+
+  <!-- Css Styles -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="/Customer/CSS/listCart.css" type="text/css">
+</head>
+
+<body>
+
+
+
+  <!-- Header Section Begin -->
+
+  <head>
+    <script src="../../js/common.js"></script>
+    <common-header></common-header>
+    <common-css></common-css>
+  </head>
+  <!-- Header Section End
+
+  <!-- Breadcrumb Section Begin -->
+  <section class="breadcrumb-option">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb__text">
+            <h4>Shopping Cart</h4>
+            <div class="breadcrumb__links">
+              <a href="./index.html">Home</a>
+              <a href="./shop.html">Shop</a>
+              <span>Shopping Cart</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Breadcrumb Section End -->
+
+  <!-- Shopping Cart Section Begin -->
+  <section class="shopping-cart spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="shopping__cart__table" id="cart-table">
+
+
+            <!-- Cart items will be inserted here dynamically -->
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="continue__btn">
+                <a href="#">Continue Shopping</a>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="continue__btn update__btn">
+                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+
+          <div class="cart__total">
+            <h6>Cart total</h6>
+            <ul>
+              <li>Subtotal <span>$ 169.50</span></li>
+              <li>Total <span>$ 169.50</span></li>
+            </ul>
+            <a href="#" class="primary-btn">Proceed to checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Shopping Cart Section End -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cartTable = document.getElementById("cart-table");
+      const cartTotal = document.getElementById("cart-total");
+      const apiUrl = "http://localhost:4001/api/carts";
+
+      // Function to update the cart
+      function updateCart() {
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Cart Data:", data); // Log the cart data
+            updateCartHTML(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching cart data:", error);
+          });
+      }
+
+      // Function to update the cart HTML based on data
+      function updateCartHTML(data) {
+        // Clear existing cart items
+        cartTable.innerHTML = "";
+
+        // Iterate through the cart items and dynamically generate HTML
+        data.carts.forEach((cartItem) => {
+          const cartItemElement = document.createElement("div");
+          cartItemElement.className = "product__cart__item";
+          cartItemElement.innerHTML = `
+     
+                      
+
+              <div class="product__cart__item__pic">
+                <img src="${cartItem.products.image}" alt="${cartItem.name}">
+              </div>
+              <div class="product__cart__item__text">
+                <h6>${cartItem.name}</h6>
+                <h5>$${cartItem.price}</h5>
+              </div>
+              <div class="quantity__item">
+                <div class="quantity">
+                  <div class="pro-qty-2">
+                    <input type="text" value="${cartItem.quantity}">
+                  </div>
+                </div>
+              </div>
+              <div class="cart__price">$${cartItem.total}</div>
+              <div class="cart__close"><i class="fa fa-close"></i></div>
+            `;
+          cartTable.appendChild(cartItemElement);
+        });
+
+        // Update cart total details
+        const cartTotalElement = document.createElement("div");
+        cartTotalElement.innerHTML = `
+            <h6>Cart total</h6>
+            <ul>
+              <li>Subtotal <span>$${data.reduce((total, item) => total + item.total, 0)}</span></li>
+              <li>Total <span>$${data.reduce((total, item) => total + item.total, 0)}</span></li>
+            </ul>
+            <a href="#" class="primary-btn">Proceed to checkout</a>
+          `;
+        cartTotal.innerHTML = "";
+        cartTotal.appendChild(cartTotalElement);
+      }
+
+      // Fetch cart data from the API initially
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Initial Cart Data:", data); // Log the initial cart data
+          updateCartHTML(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching cart data:", error);
+        });
+    });
+  </script>
+
+  <!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cartTable = document.getElementById("cart-table");
+      const cartTotal = document.getElementById("cart-total");
+      const apiUrl = "http://localhost:4001/api/carts/";
+
+      fetch(apiUrl)
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          data.carts.forEach((cartItem) => {
+            const cartItemElement = document.createElement("div");
+            cartItemElement.className = "product__cart__item";
+            cartItemElement.innerHTML = `
+              <div class="product__cart__item__pic">
+                <img src="${cartItem.products.image}" alt="${cartItem.products.name}">
+              </div>
+              <div class="product__cart__item__text">
+                <h6>${cartItem.products.name}</h6>
+                <h5>$${cartItem.products.price}</h5>
+              </div>
+              <div class="quantity__item">
+                <div class="quantity">
+                  <div class="pro-qty-2">
+                    <input type="text" value="${cartItem.products.quantity}">
+                  </div>
+                </div>
+              </div>
+              <div class="cart__price">$${cartItem.products.total}</div>
+              <div class="cart__close"><i class="fa fa-close"></i></div>
+            `;
+            cartTable.appendChild(cartItemElement);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching cart data:", error);
+        });
+    });
+
+
+
+
+
+
+
+  </script> -->
+  <!-- Footer Section Begin -->
+  <footer>
+    <common-footer></common-footer>
+  </footer>
+
+  <!-- Footer Section End -->
+
+
+
+  <!-- Js Plugins -->
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nice-select.min.js"></script>
+  <script src="/js/jquery.nicescroll.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/jquery.countdown.min.js"></script>
+  <script src="/js/jquery.slicknav.js"></script>
+  <script src="/js/mixitup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+
+</html>
