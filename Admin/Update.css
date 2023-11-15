@@ -107,6 +107,54 @@ body{
     margin-bottom: 5px;
 }
 
+.form-group {
+    margin-bottom: 15px;
+}
+
+.col-2 {
+    width: 16.6667%;
+    float: left;
+}
+
+.col-3 {
+    width: 25%; 
+    float: left;
+}
+
+#colorPicker {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+
+#removeLastColorButton {
+    background-color: #dc3545; 
+    color: #fff; 
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+#removeAllColorButton {
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+#removeLastColorButton:hover {
+    background-color: #c82333; 
+}
+
+/* Hiệu ứng hover cho nút Remove All */
+#removeAllColorButton:hover {
+    background-color: #0056b3; /* Màu xanh dương sáng */
+}
 /* .group{
     display: flex;
     margin: 15px 0;
