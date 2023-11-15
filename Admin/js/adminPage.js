@@ -1,4 +1,4 @@
-function addActionButtons(row) {
+function addActionButtons(row, product) {
     const editButton = createButton('Edit', 'btn-warning');
     const deleteButton = createButton('Delete', 'btn-danger');
 
@@ -11,8 +11,16 @@ function addActionButtons(row) {
         };
     };
 
+console.log(product._id)
+
+    editButton.onclick = function () {
+        window.location.href = `./Update.html?id=${product._id}`;
+        
+    }
+
     row.querySelector('td:nth-child(10)').append(editButton, deleteButton);
 }
+
 
 function createButton(text, className) {
     const button = document.createElement('button');
@@ -62,7 +70,7 @@ async function renderData() {
                 <td></td>
             `;
 
-            addActionButtons(row);
+            addActionButtons(row, product);
             container.appendChild(row);
         });
 
