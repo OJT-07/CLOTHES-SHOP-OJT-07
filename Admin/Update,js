@@ -11,109 +11,106 @@ function drop(event) {
   var checkboxId = event.dataTransfer.getData("text");
   var draggedCheckbox = document.getElementById(checkboxId);
 
-  if (event.target.classList.contains('droppable')) {
-      event.target.appendChild(draggedCheckbox);
-  } else if (event.target.classList.contains('draggable')) {
-
-      event.target.parentNode.appendChild(draggedCheckbox);
+  if (event.target.classList.contains("droppable")) {
+    event.target.appendChild(draggedCheckbox);
+  } else if (event.target.classList.contains("draggable")) {
+    event.target.parentNode.appendChild(draggedCheckbox);
   }
 
   updateInput();
 }
 
 function updateInput() {
-  var checkboxes = document.querySelectorAll('.draggable-item');
+  var checkboxes = document.querySelectorAll(".draggable-item");
   var checkedValues = [];
 
   checkboxes.forEach(function (checkbox) {
-      if (checkbox.checked) {
-          var label = checkbox.nextElementSibling;
-          checkedValues.push(label.textContent.trim());
-      }
+    if (checkbox.checked) {
+      var label = checkbox.nextElementSibling;
+      checkedValues.push(label.textContent.trim());
+    }
   });
 
-  document.getElementById('output-input').value = checkedValues.join(', ');
+  document.getElementById("output-input").value = checkedValues.join(", ");
 }
 
 var selectedColors = [];
 
-document.getElementById('colorPicker').addEventListener('input', function(event) {
-  var selectedColor = event.target.value;
-  selectedColors.push(selectedColor);
-  console.log(selectedColors);
+document
+  .getElementById("colorPicker")
+  .addEventListener("input", function (event) {
+    var selectedColor = event.target.value;
+    selectedColors.push(selectedColor);
+    console.log(selectedColors);
 
-  updateColorInput();
-});
+    updateColorInput();
+  });
 
 function updateColorInput() {
   // Retrieve the existing color codes
-  var colorCodesElement = document.getElementById('colorInput');
+  var colorCodesElement = document.getElementById("colorInput");
   // Display the selected color codes
-  colorCodesElement.value = selectedColors.join(', ');
+  colorCodesElement.value = selectedColors.join(", ");
 }
 
 // Example: Adding a button to remove the last color
-document.getElementById('removeLastColorButton').addEventListener('click', function() {
-  selectedColors.pop();
-  updateColorInput();
-});
+document
+  .getElementById("removeLastColorButton")
+  .addEventListener("click", function () {
+    selectedColors.pop();
+    updateColorInput();
+  });
 
-document.getElementById('removeAllColorButton').addEventListener('click', function() {
-  selectedColors = [];
-  updateColorInput();
-});
+document
+  .getElementById("removeAllColorButton")
+  .addEventListener("click", function () {
+    selectedColors = [];
+    updateColorInput();
+  });
 
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   const itemNameInput = document.getElementById("product-name");
-  var categorySelect = document.querySelector('select[name="nameCategory"]');
-  console.log("🚀 ~ file: Update,js:71 ~ document.addEventListener ~ categorySelect:", categorySelect)
-  var selectedCategoryValue = categorySelect.value;
-  console.log("🚀 ~ file: Update,js:72 ~ document.addEventListener ~ categorySelect:", categorySelect)
+  // var categorySelect = document.querySelector('select[name="nameCategory"]');
+
+  // var selectedCategoryValue = categorySelect.value;
+
   // var selectedCategoryText = categorySelect.options[categorySelect.selectedIndex].text;
   const itemPriceInput = document.getElementById("product-price");
-  const itemDescriptionShortInput =document.getElementById("short-description");
+  const itemDescriptionShortInput =
+    document.getElementById("short-description");
+  const itemCategoryInput = document.getElementById("nameCategory");
   const itemDescriptionInput = document.getElementById("detail-description");
-  const colorInput = document.getElementById("colorInput")
+  const colorInput = document.getElementById("colorInput");
   const itemQuantityInput = document.getElementById("quantity");
-  const itemSizeInput = document.getElementById('output-input');
+  const itemSizeInput = document.getElementById("output-input");
   const itemImageInput = document.getElementById("image");
   const imagePreview = document.getElementById("image-preview"); // Added this line
   const form = document.getElementById("Update-product");
 
+  const response = await fetch(`http://localhost:4001/api/products/${id}`);
 
-    const response = await fetch(
-      `http://localhost:4001/api/products/${id}`
-    );
+  if (!response.ok) {
+    throw new Error("Unable to fetch data");
+  }
 
-    if (!response.ok) {
-      throw new Error("Unable to fetch data");
-    }
+  const data = await response.json();
+  console.log("Product data:", data.product);
 
-    const data = await response.json();
-    console.log("Product data:", data.product);
-
-    // Display information on the form
-    itemNameInput.value = data?.product?.name;
-    // itemCategoryInput.value = data?.product?.category;
-    itemPriceInput.value = data?.product?.price;
-    itemDescriptionShortInput.value = data?.product?.subDescription;
-    itemDescriptionInput.value = data?.product?.description;
-   // itemQuantityInput.value = data?.product?.quantity; 
-    itemSizeInput.value = data?.product?.size;
-    colorInput.value = data?.product?.color;
-    itemImageInput.value = data?.product?.image;
-    imagePreview.src = data?.product?.image;
-    console.log(data.product.image)
-    var categoryMap = {
-      "0": "T-shirt",
-      "1": "Shirt",
-      "2": "Bags",
-      "3": "Pants",
-      "4": "Jacket",
-      "5": "Other"
-  };
+  // Display information on the form
+  itemNameInput.value = data?.product?.name;
+  itemCategoryInput.value = data?.product?.category;
+  itemPriceInput.value = data?.product?.price;
+  itemDescriptionShortInput.value = data?.product?.subDescription;
+  itemDescriptionInput.value = data?.product?.description;
+  // itemQuantityInput.value = data?.product?.quantity;
+  itemSizeInput.value = data?.product?.size;
+  colorInput.value = data?.product?.color;
+  itemImageInput.value = data?.product?.image;
+  imagePreview.src = data?.product?.image;
+  console.log(data.product.image);
+  // var categoryMap = ["T-shirt", "Shirt", "Bags", "Pants", "Jacket", "Other"];
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -122,29 +119,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       _id: id,
       name: itemNameInput.value,
       // category: itemCategoryInput.value,
-      category: categoryMap[selectedCategoryValue],
+      category: itemCategoryInput.value,
       price: itemPriceInput.value,
-    
+
       shortDescription: itemDescriptionShortInput.value,
       description: itemDescriptionInput.value,
       // quantity: itemQuantityInput.value,
-      size: itemSizeInput.value.split(',').map(color => color.trim()),
-      color: colorInput.value.split(',').map(color => color.trim()), 
+      size: itemSizeInput.value.split(",").map((color) => color.trim()),
+      color: colorInput.value.split(",").map((color) => color.trim()),
       image: itemImageInput.value,
-
     };
 
     try {
-      const response = await fetch(
-        `http://localhost:4001/api/products/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedItem),
-        }
-      );
+      const response = await fetch(`http://localhost:4001/api/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedItem),
+      });
 
       if (!response.ok) {
         throw new Error("Unable to update data");
@@ -161,20 +154,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function updateImageValue(inputElement) {
   var imageUrl = inputElement.value;
-  var holder = document.getElementById('holder');
+  var holder = document.getElementById("holder");
   holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
 }
 function chooseImage() {
-  var choice = prompt("Chọn 1 để nhập đường dẫn hình ảnh, chọn 2 để chọn tệp tin");
-  if (choice === '1') {
-      var imageUrl = prompt("Nhập đường dẫn hình ảnh hoặc link"); 
-      if (imageUrl !== null && imageUrl !== "") {
-          document.getElementById('imageUrl').value = imageUrl;
-          var holder = document.getElementById('holder');
-          holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
-      }
-  } else if (choice === '2') {
-      document.getElementById('imageFile').click();
+  var choice = prompt(
+    "Chọn 1 để nhập đường dẫn hình ảnh, chọn 2 để chọn tệp tin"
+  );
+  if (choice === "1") {
+    var imageUrl = prompt("Nhập đường dẫn hình ảnh hoặc link");
+    if (imageUrl !== null && imageUrl !== "") {
+      document.getElementById("imageUrl").value = imageUrl;
+      var holder = document.getElementById("holder");
+      holder.innerHTML =
+        '<img src="' + imageUrl + '" style="max-height:100px;">';
+    }
+  } else if (choice === "2") {
+    document.getElementById("imageFile").click();
   }
 }
 
@@ -182,12 +178,12 @@ function updateImageFileValue(inputElement) {
   var file = inputElement.files[0];
   var reader = new FileReader();
 
-  reader.onload = function() {
-      var imageUrl = reader.result;
-      var holder = document.getElementById('holder');
-      holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
-      document.getElementById('imageUrl').value = imageUrl;
-  }
+  reader.onload = function () {
+    var imageUrl = reader.result;
+    var holder = document.getElementById("holder");
+    holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
+    document.getElementById("imageUrl").value = imageUrl;
+  };
 
   reader.readAsDataURL(file);
 }
