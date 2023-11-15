@@ -67,7 +67,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   const itemNameInput = document.getElementById("product-name");
-  const itemCategoryInput = document.getElementById("product-category");
+  var categorySelect = document.querySelector('select[name="nameCategory"]');
+  console.log("🚀 ~ file: Update,js:71 ~ document.addEventListener ~ categorySelect:", categorySelect)
+  var selectedCategoryValue = categorySelect.value;
+  console.log("🚀 ~ file: Update,js:72 ~ document.addEventListener ~ categorySelect:", categorySelect)
+  // var selectedCategoryText = categorySelect.options[categorySelect.selectedIndex].text;
   const itemPriceInput = document.getElementById("product-price");
   const itemDescriptionShortInput =document.getElementById("short-description");
   const itemDescriptionInput = document.getElementById("detail-description");
@@ -92,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Display information on the form
     itemNameInput.value = data?.product?.name;
-    itemCategoryInput.value = data?.product?.category;
+    // itemCategoryInput.value = data?.product?.category;
     itemPriceInput.value = data?.product?.price;
     itemDescriptionShortInput.value = data?.product?.subDescription;
     itemDescriptionInput.value = data?.product?.description;
@@ -102,8 +106,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     itemImageInput.value = data?.product?.image;
     imagePreview.src = data?.product?.image;
     console.log(data.product.image)
-
-
+    var categoryMap = {
+      "0": "T-shirt",
+      "1": "Shirt",
+      "2": "Bags",
+      "3": "Pants",
+      "4": "Jacket",
+      "5": "Other"
+  };
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -111,7 +121,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const updatedItem = {
       _id: id,
       name: itemNameInput.value,
-      category: itemCategoryInput.value,
+      // category: itemCategoryInput.value,
+      category: categoryMap[selectedCategoryValue],
       price: itemPriceInput.value,
     
       shortDescription: itemDescriptionShortInput.value,
