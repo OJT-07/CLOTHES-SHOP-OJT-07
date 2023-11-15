@@ -76,3 +76,88 @@ body{
 .form-control{
     width: 100%;
 }
+
+.input-group-text {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    
+}
+
+.draggable {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+}
+
+.draggable-item {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.droppable {
+    border: 2px dashed #aaa;
+    padding: 10px;
+    width: 220px;
+    margin-top: 20px;
+}
+
+#output-input {
+    background-color: #fff;
+}
+
+.removeColor{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.col-2 {
+    width: 16.6667%;
+    float: left;
+}
+
+.col-3 {
+    width: 25%; 
+    float: left;
+}
+
+#colorPicker {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+
+#removeLastColorButton {
+    background-color: #dc3545; 
+    color: #fff; 
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+#removeAllColorButton {
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+#removeLastColorButton:hover {
+    background-color: #c82333; 
+}
+
+#removeAllColorButton:hover {
+    background-color: #0056b3; 
+}
