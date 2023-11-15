@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/Customer/LoginAndRegister/Login/Login.css" />
+</head>
+
+<body>
+    <div class="main">
+
+        <form action="" method="POST" class="form" id="loginForm">
+            <h3 class="heading">Login</h3>
+            <p class="desc">Welcom to Male Fashion shop ❤️</p>
+
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <button class="form-submit" type="submit">Login</button>
+
+            <div class="redirect-page">Not yet member? <a href="/Customer/LoginAndRegister/Register/Register.html">Signup now</a></div>
+            <div class="redirect-page">Return
+                <a href="/Customer/HomePage/Index.html">home page</a>
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const apiUrl = 'http://localhost:4001/api/users/login';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data === "admin") {
+                    window.location.href = '/Customer/Product/productList.html ';
+                } else {
+                    window.location.href = '/Customer/HomePage/Index.html ';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+
+    <script src="/Customer/LoginAndRegister/Login/Login.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Validator({
+                form: '#loginForm',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                    Validator.isEmail('#email'),
+                    Validator.minLength('#password', 6),
+                    Validator.isRequired('#password_confirmation'),
+                    Validator.isConfirmed('#password_confirmation', function() {
+                        return document.querySelector('#form-1 #password').value;
+                    }, 'Mật khẩu nhập lại không chính xác')
+                ],
+                onSubmit: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
