@@ -77,6 +77,36 @@ body{
     width: 100%;
 }
 
+.draggable {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+}
+
+.draggable-item {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.droppable {
+    border: 2px dashed #aaa;
+    padding: 10px;
+    width: 220px;
+    margin-top: 20px;
+}
+
+#output-input {
+    background-color: #fff;
+}
+
+.removeColor{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 /* .group{
     display: flex;
     margin: 15px 0;

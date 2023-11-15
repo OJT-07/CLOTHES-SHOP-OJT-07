@@ -1,17 +1,66 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const colorInput = document.getElementById('colorInput');
-    colorInput.addEventListener('input', function() {
-        const inputValues = colorInput.value;
-        colorsArray = inputValues.split(',').map(color => color.trim());
-        console.log(colorsArray);
-    });
+function allowDrop(event) {
+  event.preventDefault();
+}
 
-    const sizeInput = document.getElementById('sizeInput');
-    sizeInput.addEventListener('input', function() {
-        const inputValues = sizeInput.value;
-        sizesArray = inputValues.split(',').map(size => size.trim());
-        console.log(sizesArray);
-    });
+function drag(event) {
+  event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+  event.preventDefault();
+  var checkboxId = event.dataTransfer.getData("text");
+  var draggedCheckbox = document.getElementById(checkboxId);
+
+  if (event.target.classList.contains('droppable')) {
+      event.target.appendChild(draggedCheckbox);
+  } else if (event.target.classList.contains('draggable')) {
+
+      event.target.parentNode.appendChild(draggedCheckbox);
+  }
+
+  updateInput();
+}
+
+function updateInput() {
+  var checkboxes = document.querySelectorAll('.draggable-item');
+  var checkedValues = [];
+
+  checkboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+          var label = checkbox.nextElementSibling;
+          checkedValues.push(label.textContent.trim());
+      }
+  });
+
+  document.getElementById('output-input').value = checkedValues.join(', ');
+}
+
+var selectedColors = [];
+
+document.getElementById('colorPicker').addEventListener('input', function(event) {
+  var selectedColor = event.target.value;
+  selectedColors.push(selectedColor);
+  console.log(selectedColors);
+
+  updateColorInput();
+});
+
+function updateColorInput() {
+  // Retrieve the existing color codes
+  var colorCodesElement = document.getElementById('colorInput');
+  // Display the selected color codes
+  colorCodesElement.value = selectedColors.join(', ');
+}
+
+// Example: Adding a button to remove the last color
+document.getElementById('removeLastColorButton').addEventListener('click', function() {
+  selectedColors.pop();
+  updateColorInput();
+});
+
+document.getElementById('removeAllColorButton').addEventListener('click', function() {
+  selectedColors = [];
+  updateColorInput();
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -20,18 +69,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   const itemNameInput = document.getElementById("product-name");
   const itemCategoryInput = document.getElementById("product-category");
   const itemPriceInput = document.getElementById("product-price");
-  
-  const itemDescriptionShortInput =
-    document.getElementById("short-description");
+  const itemDescriptionShortInput =document.getElementById("short-description");
   const itemDescriptionInput = document.getElementById("detail-description");
   const colorInput = document.getElementById("colorInput")
   const itemQuantityInput = document.getElementById("quantity");
-  const itemSizeInput = document.getElementById("sizeInput");
+  const itemSizeInput = document.getElementById('output-input');
   const itemImageInput = document.getElementById("image");
   const imagePreview = document.getElementById("image-preview"); // Added this line
   const form = document.getElementById("Update-product");
 
-  try {
+
     const response = await fetch(
       `http://localhost:4001/api/products/${id}`
     );
@@ -49,16 +96,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     itemPriceInput.value = data?.product?.price;
     itemDescriptionShortInput.value = data?.product?.subDescription;
     itemDescriptionInput.value = data?.product?.description;
-    itemQuantityInput.value = data?.product?.quantity; 
+   // itemQuantityInput.value = data?.product?.quantity; 
     itemSizeInput.value = data?.product?.size;
     colorInput.value = data?.product?.color;
     itemImageInput.value = data?.product?.image;
     imagePreview.src = data?.product?.image;
-     
+    console.log(data.product.image)
 
-  } catch (error) {
-    console.error("Error:", error);
-  }
+
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
