@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="./cart.css" />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <h2>Cart Shopping</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Delete Product</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items"></tbody>
+        </table>
+        <div class="total">
+          <h3>Total: <span id="total-quantity">0</span></h3>
+          <h3>Total value: $<span id="total-price">0</span></h3>
+        </div>
+        <tr class="checkoutrow">
+          <td colspan="5" class="checkout">
+            <button id="submitbtn">Checkout</button>
+          </td>
+        </tr>
+      </div>
+    </section>
+    <script>
+      (async () => {
+        const userId = "654dab8ad905f0e6b3a2ced5";
+        const response = await fetch(
+          `http://localhost:4001/api/carts/${userId}`,
+          {
+            method: "GET",
+          }
+        );
+        const { message, allCartItem } = await response.json();
+        
+        if (message === "Success") {
+          const cartItemsContainer = document.getElementById("cart-items");
+
+          allCartItem.forEach((item) => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+              <td>${item.productId}</td>
+              <td>${item.cart_item_price}</td>
+              <td>${item.quantity}</td>
+              <td>${item.quantity * item.cart_item_price}</td>
+              <td>Delete button here</td>
+            `;
+
+            cartItemsContainer.appendChild(row);
+          });
+        }
+      })();
+    </script>
+    <script type="text/javascript" src="/cart.js"></script>
+  </body>
+</html>
