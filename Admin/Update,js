@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
       shortDescription: itemDescriptionShortInput.value,
       description: itemDescriptionInput.value,
-      quantity: itemQuantityInput.value,
+      // quantity: itemQuantityInput.value,
       size: itemSizeInput.value.split(',').map(color => color.trim()),
       color: colorInput.value.split(',').map(color => color.trim()), 
       image: itemImageInput.value,
