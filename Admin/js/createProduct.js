@@ -102,7 +102,9 @@ document.getElementById('removeAllColorButton').addEventListener('click', functi
 
 function createProduct() {
     var nameProduct = document.querySelector('input[name="nameProduct"]').value;
-    var nameCategory = document.querySelector('input[name="nameCategory"]').value;
+    var categorySelect = document.querySelector('select[name="nameCategory"]');
+    var selectedCategoryValue = categorySelect.value;
+    var selectedCategoryText = categorySelect.options[categorySelect.selectedIndex].text;
     var price = document.querySelector('input[name="price"]').value;
     var description = document.querySelector('textarea[name="description"]').value;
     var subDescription = document.querySelector('textarea[name="sub_description"]').value;
@@ -110,9 +112,18 @@ function createProduct() {
     var image = document.getElementById('imageUrl').value;
     var size = document.getElementById('output-input').value;
 
+    var categoryMap = {
+        "0": "T-shirt",
+        "1": "Shirt",
+        "2": "Bags",
+        "3": "Pants",
+        "4": "Jacket",
+        "5": "Other"
+    };
+
     var productData = {
         name: nameProduct,
-        category: nameCategory,
+        category: categoryMap[selectedCategoryValue],
         price: price,
         description: description,
         subDescription: subDescription,
