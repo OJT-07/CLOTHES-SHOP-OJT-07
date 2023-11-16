@@ -143,14 +143,14 @@ function handleCheckboxClickCategory(checkboxId, category) {
     filterProducts(category);
 }
 
-function handleCheckboxClickPrice(checkboxId) {
+function handleCheckboxClickCategory(checkboxId, category) {
     // Uncheck all checkboxes
-    document.querySelectorAll('.shop__sidebar__price input[type="checkbox"]').forEach(function (checkbox) {
+    document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
         checkbox.checked = false;
     });
 
     // Check the clicked checkbox
     document.getElementById(checkboxId).checked = true;
 
-    
+    filterProducts(category);
 }

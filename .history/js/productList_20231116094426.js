@@ -145,7 +145,7 @@ function handleCheckboxClickCategory(checkboxId, category) {
 
 function handleCheckboxClickPrice(checkboxId) {
     // Uncheck all checkboxes
-    document.querySelectorAll('.shop__sidebar__price input[type="checkbox"]').forEach(function (checkbox) {
+    document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
         checkbox.checked = false;
     });
 
