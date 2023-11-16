@@ -154,10 +154,10 @@ async function deleteItem(_id, count) {
     }
 }
 
-function updateTable(count) {
-    const deletedRow = document.getElementById(`product${count}`);
-    deletedRow.remove();
-}
+// function updateTable(count) {
+//     const deletedRow = document.getElementById(`product${count}`);
+//     deletedRow.remove();
+// }
 
 
 renderData();   
