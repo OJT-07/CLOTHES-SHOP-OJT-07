@@ -1,3 +1,9 @@
+var retrievedValue = localStorage.getItem('user');
+var script = document.createElement('script');
+
+
+script.src = '/Customer/LoginAndRegister/Login/logout.js'; 
+document.head.appendChild(script);
 class CommonFooter extends HTMLElement {
     constructor() {
         super();
@@ -71,46 +77,53 @@ class CommonHeader extends HTMLElement {
         super();
     }
     connectedCallback() {
-
-        this.innerHTML = `
-      <link rel="stylesheet" href="../CSS/header.css">
-      <header class="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3">
-                <div class="header__logo">
-                    <a href="../index.html"><img src=" /img/logo.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-            <nav class="header__menu mobile-menu">
-                <ul>
-                    <li class="active"><a href="../HomePage/">Home</a></li>
-                    <li><a href="../Product/productList.html">Shop</a></li>
-                    <li><a href="#">Pages</a>
-                        <ul class="dropdown">
-                            <li><a href="../Product/productDetail.html">Shop Details</a></li>
-                            <li><a href="../shopping-cart.html">Shopping Cart</a></li>
-                            <li><a href="../Checkout/index.html">Check Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-            <div class="col-lg-3 col-md-3">
-            <div class="header__nav__option">
-                <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
-                <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
-                <a href="#"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
-                <a href="/Customer/LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket icon_header"></i></a>                    
-            </div>
-        </div>
-        </div>
-        <div class="canvas__open"><i class="fa fa-bars"></i></div>
-    </div>
-</header>
-  
-      `;
+        var retrievedValue = localStorage.getItem('user');
+        console.log(retrievedValue);
+      
+            this.innerHTML = `
+            <script src="/Customer/LoginAndRegister/Login/logout.js"></script>
+            <link rel="stylesheet" href="../CSS/header.css">
+            <header class="header">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-3 col-md-3">
+                      <div class="header__logo">
+                          <a href="../index.html"><img src=" /img/logo.png" alt=""></a>
+                      </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                  <nav class="header__menu mobile-menu">
+                      <ul>
+                          <li class="active"><a href="../HomePage/">Home</a></li>
+                          <li><a href="../Product/productList.html">Shop</a></li>
+                          <li><a href="#">Pages</a>
+                              <ul class="dropdown">
+                                  <li><a href="../Product/productDetail.html">Shop Details</a></li>
+                                  <li><a href="../shopping-cart.html">Shopping Cart</a></li>
+                                  <li><a href="../Checkout/index.html">Check Out</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+                  <div class="col-lg-3 col-md-3">
+                  <div class="header__nav__option">
+                      <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
+                      <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
+                      <a href="/Admin/TEST LIST CART UPDATE/cart.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
+                      ${retrievedValue === null ? `
+                      <a href="../LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon_header"></i></a>
+                        ` : `
+                        <a onclick="logout() "><i class="fa-solid fa-right-to-bracket icon_header"></i></a>
+                        `}  
+                  </div>
+              </div>
+              </div>
+              <div class="canvas__open"><i class="fa fa-bars"></i></div>
+          </div>
+      </header>
+        
+            `;
     }
 }
 class CommonCss extends HTMLElement {
