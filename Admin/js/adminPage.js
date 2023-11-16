@@ -1,18 +1,15 @@
-function addActionButtons(row, product) {
+function addActionButtons(row, product, count) {
     const editButton = createButton('Edit', 'btn-warning');
     const deleteButton = createButton('Delete', 'btn-danger');
 
     deleteButton.onclick = function () {
         showPopup();
-        const productId = row.querySelector('td:nth-child(1)').textContent;
+        // const productId = row.querySelector('td:nth-child(1)').textContent;
         document.getElementById('confirmDelete').onclick = function () {
-            deleteItem(productId);
+            deleteItem(product._id, count);
             closePopup();
         };
     };
-
-console.log(product._id)
-
     editButton.onclick = function () {
         window.location.href = `./Update.html?id=${product._id}`;
         
@@ -39,6 +36,8 @@ async function fetchData() {
     }
 }
 
+let shouldLog = true;
+
 async function renderData() {
     try {
         const container = document.querySelector('#bodyTable');
@@ -49,12 +48,16 @@ async function renderData() {
             return;
         }
 
-        data.products.forEach(product => {
+        container.innerHTML = '';
+
+        data.products.forEach((product, index) => {
+            let count = index + 1;
             const row = document.createElement('tr');
+            row.setAttribute("id", "product" + count)
             const fullDescription = product.description;
 
             row.innerHTML = `
-                <td>${product._id}</td>
+                <td>${count}</td>
                 <td>${product.name}</td>
                 <td>${product.category}</td>
                 <td>${product.price}</td>
@@ -70,8 +73,9 @@ async function renderData() {
                 <td></td>
             `;
 
-            addActionButtons(row, product);
+            addActionButtons(row, product, count);
             container.appendChild(row);
+            console.log(row);
         });
 
     } catch (error) {
@@ -114,22 +118,31 @@ function closePopup() {
     document.getElementById('deletePopup').style.display = 'none';
 }
 
-function deleteItem(_id) {
-    fetch(`http://localhost:4001/api/products/${_id}`, {
-        method: 'DELETE',
-    })
-    .then(response => {
+async function deleteItem(_id, count) {
+    try {
+        const response = await fetch(`http://localhost:4001/api/products/${_id}`, {
+            method: 'DELETE',
+        });
+
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
-    })
-    .then(data => {
+
+        const data = await response.json();
         console.log('Success:', data);
-    })
-    .catch(error => {
+
+        // Sau khi xóa thành công, load lại toàn bộ dữ liệu và render lại bảng
+        await renderData();
+        closePopup();
+    } catch (error) {
         console.error('Error:', error);
-    });
+    }
 }
 
-renderData();
+function updateTable(count) {
+    const deletedRow = document.getElementById(`product${count}`);
+    deletedRow.remove();
+}
+
+
+renderData();   

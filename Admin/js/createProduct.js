@@ -145,6 +145,8 @@ function createProduct() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+
+        window.location.href = './adminPage.html';
     })
     .catch(error => {
         console.error('Error:', error);
