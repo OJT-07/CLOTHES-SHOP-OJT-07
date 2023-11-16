@@ -1,3 +1,10 @@
+<script>
+    var retrievedValue = localStorage.getItem('user');
+    console.log(retrievedValue);
+    
+</script>
+<script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="../CSS/header.css">
 <header class="header">
     <div class="container">
@@ -25,10 +32,11 @@
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
                     <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
-                    <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
-                    <a href="#"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
-                    <a href="/Customer/LoginAndRegister/Login/Login.html"><i
-                            class="fa-solid fa-right-to-bracket icon_header"></i></a>
+                    <a href="../LoginAndRegister/Login/logout.js"><i class="fa-solid fa-heart icon_header"></i></a>
+
+                    <a href="/Admin/TEST LIST CART UPDATE/cart.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
+                   
+                        
                 </div>
             </div>
         </div>
