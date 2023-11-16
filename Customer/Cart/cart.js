@@ -142,23 +142,33 @@ document.getElementById("cart-items").addEventListener("click", (event) => {
                 </div>
             </div>`;
           } else {
+          //   <td class="product-name">
+          //   <img src="${item.image}" alt="${item.name}" class="product-image">
+          //   ${item.name}
+          // </td>
             cartItemsElement.innerHTML = "";
             cartItems.forEach((item) => {
               const row = document.createElement("tr");
               row.innerHTML = `
-                <td class="product-name">
-                  <img src="${item.image}" alt="${item.name}" class="product-image">
-                  ${item.name}
+
+                <td class="product__cart__item">
+                <div class="product__cart__item__pic">
+                <img src="${item.image}" class="product-image">         
+                </div>
+                <div class="product__cart__item__text">
+                    <h6>${item.name}</h6>
+                    <h5>${item.price}</h5>
+                </div>
                 </td>
-                <td class="product-price">$${item.price}</td>
-               <td>
-                <span class="counter">
-                  <span class="update-quantity" data-product-id="${item.id}"onclick="decrementQuantity(this)">-</span>
-                  <input class="quantity-display" value="${item.quantity}" id="quantity-${item.id}" oninput="updateQuantity(this)">
-                  <span class="update-quantity" data-product-id="${item.id}"onclick="incrementQuantity(this)">+</span>
-                </span>
-               </td>
-               <td class ="product-total">$${item.price * item.quantity}</td>
+                <td class="quantity__item">
+                <div class="quantity">
+                    <div class="pro-qty-2">
+                        <input type="text" value="${item.quantity}">
+                    </div>
+                </div>
+                </td>
+               
+                <td class="cart__price">${item.price * item.quantity}</td>
                 <td class="product-remove">
                   <button style="border: none;" class="remove-item" data-product-id="${item.id}"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
