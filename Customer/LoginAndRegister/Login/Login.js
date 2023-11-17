@@ -181,7 +181,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const apiUrl = 'http://localhost:4001/api/users/login';
+    const apiUrl = 'http://localhost:4001/api/auth/login';
 
     try {
         const response = await fetch(apiUrl, {
