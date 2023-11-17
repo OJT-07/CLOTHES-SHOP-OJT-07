@@ -1,53 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
-    <link rel="stylesheet" href="/Customer/LoginAndRegister/Register/Register.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-</head>
+    <link
+      rel="stylesheet"
+      href="/Customer/LoginAndRegister/Register/Register.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+  </head>
 
-<body>
-    <form action="/Customer/LoginAndRegister/Login/Login.html">
-        <h2>Form Validation</h2>
-        <div class="form-group fullname">
-            <label for="fullname">Full Name</label>
-            <input type="text" id="fullname" placeholder="Enter your full name">
-        </div>
-        <div class="form-group email">
-            <label for="email">Email Address</label>
-            <input type="text" id="email" placeholder="Enter your email address">
-        </div>
-        <div class="form-group password">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password">
-            <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
-        </div>
-        <div class="form-group date">
-            <label for="date">Birth Date</label>
-            <input type="date" id="date" placeholder="Select your date">
-        </div>
-        <div class="form-group gender">
-            <label for="gender">Gender</label>
-            <select id="gender">
-          <option value="" selected disabled>Select your gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-        </div>
-        <div class="form-group submit-btn">
-            <input type="submit" value="Submit">
+  <body>
+    <form id="registrationForm">
+      <div class="form-group fullname">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="Enter your full name" required/>
+      </div>
+      <div class="form-group email">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email address" required />
+      </div>
+      <div class="form-group fullname">
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" placeholder="Enter your phone" required/>
+      </div>
+      <div class="form-group fullname">
+        <label for="address">Address</label>
+        <input type="text" id="address" placeholder="Enter your address" />
+      </div>
 
-            <div class="return_loginpage">Return
-                <a href="/Customer/LoginAndRegister/Login/Login.html">Login page</a>
-            </div>
-        </div>
+      <div class="form-group password">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter your password"required
+        />
+        <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
+      </div>
+      <div class="form-group password">
+        <label for="password">Password Confirm</label>
+        <input
+          type="password"
+          id="password_confirm"
+          placeholder="Enter your password"required
+        />
+        <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
+      </div>
+
+      <div class="form-group submit-btn">
+        <input type="submit" value="Submit" />
+
+        
+      </div>
     </form>
 
     <script src="/Customer/LoginAndRegister/Register/Register.js"></script>
-</body>
-
+  </body>
 </html>
