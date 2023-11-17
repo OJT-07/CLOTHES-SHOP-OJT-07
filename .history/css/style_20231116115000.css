@@ -144,8 +144,8 @@ ol {
 }
 
 .spad {
-    padding-bottom: 100px;
     padding-top: 25px;
+    padding-bottom: 100px;
 }
 
 .text-white h1,
@@ -208,8 +208,8 @@ ol {
     margin-top: -13px;
     margin-left: -13px;
     border-radius: 60px;
-    animation: loader 2s linear infinite;
-    -webkit-animation: loader 2s linear infinite;
+    animation: loader 0.8s linear infinite;
+    -webkit-animation: loader 0.8s linear infinite;
 }
 
 @keyframes loader {
@@ -323,30 +323,6 @@ ol {
 /*---------------------
   Header
 -----------------------*/
-
-
-/* Add this style in your CSS file or within a <style> tag in the head section */
-
-.toast-container {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
-}
-
-.toast {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.toast.show {
-    opacity: 1;
-}
 
 .header {
     background: #ffffff;
@@ -1244,6 +1220,7 @@ ol {
     border: none;
     border-radius: 0;
     margin-bottom: 25px;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .shop__sidebar__accordion .card:last-child {
@@ -1465,7 +1442,7 @@ ol {
 }
 
 .shop__sidebar__accordion .card-heading a:after,
-.shop__sidebar__accordion .card-heading>a.active[aria-expanded="false"]:after {
+.shop__sidebar__accordion .card-heading>a.active[aria-expanded=false]:after {
     content: "";
     font-family: "FontAwesome";
     font-size: 24px;
@@ -2452,15 +2429,6 @@ ol {
     text-align: center;
     color: #111111;
     font-size: 16px;
-}
-
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 p {
-    width: 50px;
-    border: none;
-    text-align: center;
-    color: #111111;
-    font-size: 16px;
-    margin-top: 15px;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 .qtybtn {
@@ -3960,23 +3928,22 @@ ol {
 
 #toast {
     position: fixed;
-    top: 75px;
+    top: 32px;
     right: 32px;
     z-index: 999999;
 }
 
-.toaster {
+.toast {
     display: flex;
     align-items: center;
     background-color: #fff;
     border-radius: 2px;
     padding: 20px 0;
-    margin-top: 12px;
     min-width: 400px;
     max-width: 450px;
     border-left: 4px solid;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
-    transition: all linear 0.3s;
+    transition: all linear 0.5s;
 }
 
 @keyframes slideInLeft {

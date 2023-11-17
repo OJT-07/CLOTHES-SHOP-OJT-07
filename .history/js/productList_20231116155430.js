@@ -2,13 +2,7 @@
 const filterProducts = (category) => {
     const newUrl = `/Customer/Product/productList.html?category=${category}`;
     history.pushState({ category }, null, newUrl);
-    renderData();
-}
-
-const reFilterProducts = (all) => {
-    const newUrl = `/Customer/Product/productList.html?all`;
-    history.pushState({ all }, null, newUrl);
-    renderData(); 
+    renderData(); // Update the content based on the new category
 }
 
 const filterPrice = () => {
@@ -35,9 +29,10 @@ const renderData = async () => {
 	if (category === null || category === 'All') {
 		dataRender = data.products;
 	} else {
+
+        console.log("dsadsadá",  price, category);
 		var filterData = await data.products.filter(
-            (item) => item.category === category
-			// (item) => item.category === category && item?.price >= 50 && item?.price <= 100
+			(item) => item.category === category && item?.price <= price
 		);
         dataRender = filterData;    
 	}
@@ -159,7 +154,6 @@ function handleCheckboxClickCategory(checkboxId, category) {
     filterProducts(category);
 }
 
-
 // Handle Checkbox Click Price
 function handleCheckboxClickPrice(checkboxId) {
     // Uncheck all checkboxes
@@ -169,6 +163,8 @@ function handleCheckboxClickPrice(checkboxId) {
 
     // Check the clicked checkbox
     document.getElementById(checkboxId).checked = true;
+
+ console.log("object", checkboxId);
 }
 
 // Add to cart

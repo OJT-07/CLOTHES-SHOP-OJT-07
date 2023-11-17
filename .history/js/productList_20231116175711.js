@@ -2,13 +2,13 @@
 const filterProducts = (category) => {
     const newUrl = `/Customer/Product/productList.html?category=${category}`;
     history.pushState({ category }, null, newUrl);
-    renderData();
+    renderData(); // Update the content based on the new category
 }
 
 const reFilterProducts = (all) => {
     const newUrl = `/Customer/Product/productList.html?all`;
     history.pushState({ all }, null, newUrl);
-    renderData(); 
+    renderData(); // Update the content based on the new category
 }
 
 const filterPrice = () => {

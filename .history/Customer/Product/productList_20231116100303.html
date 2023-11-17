@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="/Customer/CSS/productList.css" />
+</head>
+
+<<<<<<< HEAD <head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/Customer/CSS/productList.css">
+
+    <common-header></common-header>
+    <common-css></common-css>
+    </head>
+
+    <body>
+        <section class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__text">
+                            <h4>Shop</h4>
+                            <div class="breadcrumb__links">
+                                <a href="./index.html">Home</a>
+                                <span>Shop</span>
+                            </div>
+                        </div>
+                    </div>
+                    =======
+
+                    <body>
+                        <section class="breadcrumb-option">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="breadcrumb__text">
+                                            <h4>Shop</h4>
+                                            <div class="breadcrumb__links">
+                                                <a href="../HomePage/Index.html">Home</a>
+                                                <span>Shop</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="shop spad">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-9">
+                                        <div class="shop__product__option">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="shop__product__option__left">
+                                                        <p>Showing 1-12 of 126 results</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <div class="shop__product__option__right">
+                                                        <p>Sort by Price:</p>
+                                                        <select>
+                      <option value="">Low To High</option>
+                      <option value="">$0 - $55</option>
+                      <option value="">$55 - $100</option>
+                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="product-list">
+                                            <!-- Product data will be inserted here dynamically -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="product__pagination">
+                                                    <a class="active" href="#">1</a>
+                                                    <a href="#">2</a>
+                                                    <a href="#">3</a>
+                                                    <span>...</span>
+                                                    <a href="#">21</a>
+                                                </div>
+                                            </div>
+                                            >>>>>>> 8bd4062e050ef6ce3cab90d5a99f6208d9110678
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                        <script>
+                            // Function to handle adding a product to the cart
+                            const addToCart = (productId) => {
+                                console.log(`${productId}`);
+                                const user = JSON.parse(localStorage.getItem("user"));
+                                //Make a POST request to your cart API endpoint
+                                fetch("http://localhost:4001/api/carts", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({
+                                            _id: productId,
+                                            userId: user._id,
+                                        }),
+                                    })
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        console.log("Product added to cart:", data);
+                                        // You can add any additional logic here, such as updating the UI to reflect the added item.
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error adding product to cart:", error);
+                                    });
+                            };
+
+                            document.addEventListener("DOMContentLoaded", function() {
+                                        const productList = document.getElementById("product-list");
+                                        const apiUrl = "http://localhost:4001/api/products";
+                                        fetch(apiUrl, {
+                                                mode: "cors",
+                                                headers: {
+                                                    "Access-Control-Allow-Origin": "*",
+                                                },
+                                            })
+                                            .then((response) => {
+                                                console.log(response);
+                                                return response.json();
+                                            })
+                                            .then((data) => {
+                                                    console.log(data);
+                                                    data.products.forEach((product) => {
+                                                                const productItem = document.createElement("div");
+                                                                productItem.className = "col-lg-4 col-md-6 col-sm-6";
+                                                                productItem.innerHTML = `
+                <div class="product__item">
+                  <div class="product__item__pic">
+                    <img src= "${product.image}" style="height: 260px; width: 260px;"/>
+                    <ul class="product__hover">
+                      <li>
+                        <a href="#"><img src="/img/icon/heart.png" alt=""></a>
+                      </li>
+                      <li>
+                        <a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a>
+                      </li>
+                      <li>
+                        <a href="#"><img src="/img/icon/search.png" alt=""></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="product__item__text">
+                    <h6>${product.name}</h6>
+                     <a class="add-cart" style="cursor: pointer;" onclick="addToCart('${product._id}')">+ Add To Cart</a>
+                    <div class="rating">
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="shop__product__option">
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="shop__product__option__left">
+                                    <p>Showing 1-12 of 126 results</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="shop__product__option__right">
+                                    <p>Sort by Price:</p>
+                                    <select>
+                                      <option value="">Low To High</option>
+                                      <option value="">$0 - $55</option>
+                                      <option value="">$55 - $100</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row" id="product-list">
+                        <!-- Product data will be inserted here dynamically -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product__pagination">
+                                <a class="active" href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <span>...</span>
+                                <a href="#">21</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<<<<<<< HEAD
+            </div>
+        </div>
+    </section>
+
+    <!-- Script -->
+    <script src="/js/productList.js">
+                        </script>
+                        ======= `; productList.appendChild(productItem); }); }) .catch((error) => { console.error("Error fetching product data:", error); }); });
+                        </script>
+                        >>>>>>> 8bd4062e050ef6ce3cab90d5a99f6208d9110678
+                        <script src="/js/jquery-3.3.1.min.js"></script>
+                        <script src="/js/bootstrap.min.js"></script>
+                        <script src="/js/jquery.nice-select.min.js"></script>
+                        <script src="/js/jquery.nicescroll.min.js"></script>
+                        <script src="/js/jquery.magnific-popup.min.js"></script>
+                        <script src="/js/jquery.countdown.min.js"></script>
+                        <script src="/js/jquery.slicknav.js"></script>
+                        <script src="/js/mixitup.min.js"></script>
+                        <script src="/js/owl.carousel.min.js"></script>
+                        <script src="/js/main.js"></script>
+                        <<<<<<< HEAD <script src="/js/common.js">
+                            </script>
+                            <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
+
+                            <common-footer></common-footer>
+                    </body>
+
+</html>
+=======
+</body>
+
+</html>
+>>>>>>> 8bd4062e050ef6ce3cab90d5a99f6208d9110678

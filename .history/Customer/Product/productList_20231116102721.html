@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/Customer/CSS/productList.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
 
     <common-header></common-header>
     <common-css></common-css>
@@ -24,7 +23,7 @@
                     <div class="breadcrumb__text">
                         <h4>Shop</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
+                            <a href="../HomePage/Index.html">Home</a>
                             <span>Shop</span>
                         </div>
                     </div>
@@ -39,6 +38,7 @@
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
 
+                        <!-- Search -->
                         <div class="shop__sidebar__search">
                             <form id="search-form">
                                 <input id="search-input" type="text" placeholder="Search by name..." value="">
@@ -46,6 +46,7 @@
                             </form>
                         </div>
 
+                        <!-- Sidebar -->
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
 
@@ -61,7 +62,7 @@
                                             <div class="shop__sidebar__categories">
                                                 <ul class="category-list">
                                                     <li>
-                                                        <input type="checkbox" id="all" name="productCategory" onclick="handleCheckboxClickCategory('all', 'All')">
+                                                        <input type="checkbox" id="all" name="productCategory" onclick="handleCheckboxClickCategory('all', 'All')" checked>
                                                         <label for="all">All</label>
                                                     </li>
                                                     <li>
@@ -131,7 +132,7 @@
                                             <div class="shop__sidebar__price">
                                                 <ul>
                                                     <li>
-                                                        <input type="checkbox" id="0-50" name="productPrice" onclick="handleCheckboxClickPrice('0-50', '$0.00 - $50.00')">
+                                                        <input type="checkbox" id="0-50" name="productPrice" onclick="handleCheckboxClickPrice('0-50', '$0.00 - $50.00')" checked>
                                                         <label for="0-50">$0.00 - $50.00</label>
                                                     </li>
                                                     <li>
@@ -277,6 +278,7 @@
                     </div>
                 </div>
 
+                <!-- Pagination -->
                 <div class="col-lg-9">
                     <div class="shop__product__option">
                         <div class="row">
@@ -317,8 +319,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div id="toast"></div>
             </div>
         </div>
     </section>

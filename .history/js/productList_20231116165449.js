@@ -2,13 +2,7 @@
 const filterProducts = (category) => {
     const newUrl = `/Customer/Product/productList.html?category=${category}`;
     history.pushState({ category }, null, newUrl);
-    renderData();
-}
-
-const reFilterProducts = (all) => {
-    const newUrl = `/Customer/Product/productList.html?all`;
-    history.pushState({ all }, null, newUrl);
-    renderData(); 
+    renderData(); // Update the content based on the new category
 }
 
 const filterPrice = () => {
@@ -32,7 +26,7 @@ const renderData = async () => {
     const searchInput = document.getElementById("search-input");
     searchInput.value = searchQuery || ''; // Use empty string if searchQuery is null
 
-	if (category === null || category === 'All') {
+	if (category === null || category === ALL) {
 		dataRender = data.products;
 	} else {
 		var filterData = await data.products.filter(
@@ -149,16 +143,31 @@ document.addEventListener("DOMContentLoaded", () => {
 // Handle Checkbox Click Category
 function handleCheckboxClickCategory(checkboxId, category) {
     // Uncheck all checkboxes
-    document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
+    var searchParams = new URLSearchParams(window.location.search);
 
-    // Check the clicked checkbox
-    document.getElementById(checkboxId).checked = true;
+    var clickedCheckbox = document.getElementById(checkboxId);
+    if (!clickedCheckbox.checked) {
+        // Uncheck all checkboxes
+        document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
+            checkbox.checked = false;
+       
+        });
 
-    filterProducts(category);
+        // Check the clicked checkbox
+        clickedCheckbox.checked = true;
+
+        filterProducts(category);
+    } else {
+        // If the clicked checkbox is already checked, uncheck it
+        clickedCheckbox.checked = false;
+        if (!clickedCheckbox.checked) {
+            // Uncheck all checkboxes
+            searchParams.delete(category);
+        }
+        // Optionally, you may want to call filterProducts(category) even when unchecking
+        filterProducts("ALL");
+    }
 }
-
 
 // Handle Checkbox Click Price
 function handleCheckboxClickPrice(checkboxId) {

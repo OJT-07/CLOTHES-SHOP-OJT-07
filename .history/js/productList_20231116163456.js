@@ -2,13 +2,7 @@
 const filterProducts = (category) => {
     const newUrl = `/Customer/Product/productList.html?category=${category}`;
     history.pushState({ category }, null, newUrl);
-    renderData();
-}
-
-const reFilterProducts = (all) => {
-    const newUrl = `/Customer/Product/productList.html?all`;
-    history.pushState({ all }, null, newUrl);
-    renderData(); 
+    renderData(); // Update the content based on the new category
 }
 
 const filterPrice = () => {
@@ -16,6 +10,7 @@ const filterPrice = () => {
     history.pushState({ price }, null, newUrl);
     renderData(); 
 }
+var url = new Url(window.location.href);
 
 // Render Data
 const renderData = async () => {
@@ -27,12 +22,16 @@ const renderData = async () => {
     let category = params.get("category");
     let price = params.get("price");
     let searchQuery = params.get("search");
+    let checkedCategory = document.getElementById("productCategory");
+    if(checkedCategory===false){
+        url.searchParams.delete("category");
+    }
 
     // Set the search input value based on the query parameter
     const searchInput = document.getElementById("search-input");
     searchInput.value = searchQuery || ''; // Use empty string if searchQuery is null
 
-	if (category === null || category === 'All') {
+	if (category === null || category === undefined) {
 		dataRender = data.products;
 	} else {
 		var filterData = await data.products.filter(
@@ -158,7 +157,6 @@ function handleCheckboxClickCategory(checkboxId, category) {
 
     filterProducts(category);
 }
-
 
 // Handle Checkbox Click Price
 function handleCheckboxClickPrice(checkboxId) {

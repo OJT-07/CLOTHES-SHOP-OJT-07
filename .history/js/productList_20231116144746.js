@@ -1,23 +1,10 @@
-// Filter Products
 const filterProducts = (category) => {
     const newUrl = `/Customer/Product/productList.html?category=${category}`;
     history.pushState({ category }, null, newUrl);
-    renderData();
+    renderData(); // Update the content based on the new category
 }
 
-const reFilterProducts = (all) => {
-    const newUrl = `/Customer/Product/productList.html?all`;
-    history.pushState({ all }, null, newUrl);
-    renderData(); 
-}
 
-const filterPrice = () => {
-    const newUrl = `/Customer/Product/productList.html?price=${price}`;
-    history.pushState({ price }, null, newUrl);
-    renderData(); 
-}
-
-// Render Data
 const renderData = async () => {
 	const response = await fetch("http://localhost:4001/api/products");
 	const data = await response.json();
@@ -25,7 +12,6 @@ const renderData = async () => {
 	let dataRender;
 	let params = new URL(document.location).searchParams;
     let category = params.get("category");
-    let price = params.get("price");
     let searchQuery = params.get("search");
 
     // Set the search input value based on the query parameter
@@ -36,8 +22,7 @@ const renderData = async () => {
 		dataRender = data.products;
 	} else {
 		var filterData = await data.products.filter(
-            (item) => item.category === category
-			// (item) => item.category === category && item?.price >= 50 && item?.price <= 100
+			(item) => item.category === category
 		);
         dataRender = filterData;    
 	}
@@ -146,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderData();
 });
 
-// Handle Checkbox Click Category
 function handleCheckboxClickCategory(checkboxId, category) {
     // Uncheck all checkboxes
     document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
@@ -159,8 +143,6 @@ function handleCheckboxClickCategory(checkboxId, category) {
     filterProducts(category);
 }
 
-
-// Handle Checkbox Click Price
 function handleCheckboxClickPrice(checkboxId) {
     // Uncheck all checkboxes
     document.querySelectorAll('.shop__sidebar__price input[type="checkbox"]').forEach(function (checkbox) {
@@ -169,6 +151,8 @@ function handleCheckboxClickPrice(checkboxId) {
 
     // Check the clicked checkbox
     document.getElementById(checkboxId).checked = true;
+
+    
 }
 
 // Add to cart
@@ -198,7 +182,7 @@ const addToCart = (productId) => {
 
 };
 
-// Toast
+// Toaster
 function showSuccessToast() {
     toast({
         title: "Succces!",
@@ -208,48 +192,48 @@ function showSuccessToast() {
     });
 }
 
-function toast({ title = "", message = "", type = "", duration}) {
+function toast({ title = "", message = "", type = "info", duration}) {
     const main = document.getElementById("toast");
     if (main) {
-        const toast = document.createElement("div");
-
-        // Auto remove toast
-        const autoRemoveId = setTimeout(function() {
-            main.removeChild(toast);
-        }, duration + 1000);
-
-        // Remove toast when clicked
-        toast.onclick = function(e) {
-            if (e.target.closest(".toast__close")) {
-                main.removeChild(toast);
-                clearTimeout(autoRemoveId);
-            }
-        };
-
-        const icons = {
-            success: "fas fa-check-circle",
-            error: "fas fa-exclamation-circle",
-            info: "fas fa-info-circle",
-            warning: "fas fa-exclamation-circle",
-        };
-        const icon = icons[type];   
-        const delay = (duration / 1000).toFixed(2);
-
-        toast.classList.add("toaster", `toast--${type}`);
-        toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
-
-        toast.innerHTML = `
-                    <div class="toast__icon">
-                        <i class="${icon}"></i>
-                    </div>
-                    <div class="toast__body">
-                        <h3 class="toast__title">${title}</h3>
-                        <p class="toast__msg">${message}</p>
-                    </div>
-                    <div class="toast__close">
-                        <i class="fas fa-times"></i>
-                    </div>
-                `;
-        main.appendChild(toast);
+      const toast = document.createElement("div");
+  
+      // Auto remove toast
+      const autoRemoveId = setTimeout(function () {
+        main.removeChild(toast);
+      }, duration + 1000);
+  
+      // Remove toast when clicked
+      toast.onclick = function (e) {
+        if (e.target.closest(".toast__close")) {
+          main.removeChild(toast);
+          clearTimeout(autoRemoveId);
+        }
+      };
+  
+      const icons = {
+        success: "fas fa-check-circle",
+        error: "fas fa-exclamation-circle",
+        info: "fas fa-info-circle",
+        warning: "fas fa-exclamation-circle",
+      };
+      const icon = icons[type];
+      const delay = (duration / 1000);
+  
+      toast.classList.add("toast", `toast--${type}`);
+      toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+  
+      toast.innerHTML = `
+                        <div class="toast__icon">
+                            <i class="${icon}"></i>
+                        </div>
+                        <div class="toast__body">
+                            <h3 class="toast__title">${title}</h3>
+                            <p class="toast__msg">${message}</p>
+                        </div>
+                        <div class="toast__close">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+      main.appendChild(toast);
     }
-}
+  }

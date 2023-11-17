@@ -87,8 +87,10 @@ p {
 }
 
 img {
-    height: 100%;
+    <<<<<<< HEAD height: 100%;
     width: 100%;
+    =======max-width: 100%;
+    >>>>>>>8bd4062e050ef6ce3cab90d5a99f6208d9110678
 }
 
 input:focus,
@@ -144,8 +146,11 @@ ol {
 }
 
 .spad {
+    <<<<<<< HEAD padding-top: 25px;
     padding-bottom: 100px;
-    padding-top: 25px;
+    =======padding-top: 100px;
+    padding-bottom: 100px;
+    >>>>>>>8bd4062e050ef6ce3cab90d5a99f6208d9110678
 }
 
 .text-white h1,
@@ -323,30 +328,6 @@ ol {
 /*---------------------
   Header
 -----------------------*/
-
-
-/* Add this style in your CSS file or within a <style> tag in the head section */
-
-.toast-container {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
-}
-
-.toast {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.toast.show {
-    opacity: 1;
-}
 
 .header {
     background: #ffffff;
@@ -1241,9 +1222,14 @@ ol {
 }
 
 .shop__sidebar__accordion .card {
-    border: none;
+    <<<<<<< HEAD border: none;
     border-radius: 0;
     margin-bottom: 25px;
+    border-bottom: 1px solid #e5e5e5;
+    =======border: none;
+    border-radius: 0;
+    margin-bottom: 25px;
+    >>>>>>>8bd4062e050ef6ce3cab90d5a99f6208d9110678
 }
 
 .shop__sidebar__accordion .card:last-child {
@@ -1259,10 +1245,7 @@ ol {
     padding: 0;
     padding-top: 10px;
     padding-bottom: 20px;
-}
-
-.shop__sidebar__accordion .card-body-category {
-    padding: 20px 0 5px 0;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .shop__sidebar__accordion .card-heading {
@@ -1272,10 +1255,6 @@ ol {
 .divide-line {
     border-top: 1px solid #e5e5e5;
     margin-bottom: 24px;
-}
-
-.add-cart {
-    cursor: pointer;
 }
 
 .category-list {
@@ -1316,8 +1295,10 @@ ol {
 .shop__sidebar__categories ul li,
 .shop__sidebar__price ul li,
 .shop__sidebar__brand ul li {
-    list-style: none;
+    <<<<<<< HEAD list-style: none;
     cursor: pointer;
+    =======list-style: none;
+    >>>>>>>8bd4062e050ef6ce3cab90d5a99f6208d9110678
 }
 
 .shop__sidebar__categories ul li a,
@@ -2452,15 +2433,6 @@ ol {
     text-align: center;
     color: #111111;
     font-size: 16px;
-}
-
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 p {
-    width: 50px;
-    border: none;
-    text-align: center;
-    color: #111111;
-    font-size: 16px;
-    margin-top: 15px;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 .qtybtn {
@@ -3953,89 +3925,4 @@ ol {
     .categories__text:before {
         height: 250px;
     }
-}
-
-
-/* Toaster */
-
-#toast {
-    position: fixed;
-    top: 75px;
-    right: 32px;
-    z-index: 999999;
-}
-
-.toaster {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 2px;
-    padding: 20px 0;
-    margin-top: 12px;
-    min-width: 400px;
-    max-width: 450px;
-    border-left: 4px solid;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
-    transition: all linear 0.3s;
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(calc(100% + 32px));
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-    }
-}
-
-.toast--success {
-    border-color: #47d864;
-}
-
-.toast--success .toast__icon {
-    color: #47d864;
-}
-
-.toast+.toast {
-    margin-top: 24px;
-}
-
-.toast__icon {
-    font-size: 24px;
-}
-
-.toast__icon,
-.toast__close {
-    padding: 0 16px;
-}
-
-.toast__body {
-    flex-grow: 1;
-}
-
-.toast__title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
-}
-
-.toast__msg {
-    font-size: 14px;
-    color: #888;
-    margin-top: 6px;
-    line-height: 1.5;
-}
-
-.toast__close {
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
 }

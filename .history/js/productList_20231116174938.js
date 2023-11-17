@@ -2,13 +2,13 @@
 const filterProducts = (category) => {
     const newUrl = `/Customer/Product/productList.html?category=${category}`;
     history.pushState({ category }, null, newUrl);
-    renderData();
+    renderData(); // Update the content based on the new category
 }
 
-const reFilterProducts = (all) => {
-    const newUrl = `/Customer/Product/productList.html?all`;
-    history.pushState({ all }, null, newUrl);
-    renderData(); 
+const reFilterProducts = (category) => {
+    const newUrl = `/Customer/Product/productList.html?category`;
+    history.pushState({ category }, null, newUrl);
+    renderData(); // Update the content based on the new category
 }
 
 const filterPrice = () => {
@@ -148,15 +148,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Handle Checkbox Click Category
 function handleCheckboxClickCategory(checkboxId, category) {
-    // Uncheck all checkboxes
-    document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
-        checkbox.checked = false;
-    });
+    var clickedCheckbox = document.getElementById(checkboxId);
 
-    // Check the clicked checkbox
-    document.getElementById(checkboxId).checked = true;
+    // Toggle the checked state of the clicked checkbox
+    clickedCheckbox.checked = !clickedCheckbox.checked;
 
-    filterProducts(category);
+    // If the checkbox is now checked, uncheck all other checkboxes
+    if (clickedCheckbox.checked) {
+        document.querySelectorAll('.category-list input[type="checkbox"]').forEach(function (checkbox) {
+            if (checkbox !== clickedCheckbox) {
+                checkbox.checked = true;
+                filterProducts(category);
+            }
+        });
+    } else {
+        document.getElementById(checkboxId).checked = false;
+
+        filterProducts(category);
+    }
 }
 
 
