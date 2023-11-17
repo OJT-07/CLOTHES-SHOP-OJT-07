@@ -110,7 +110,7 @@ class CommonHeader extends HTMLElement {
                   <div class="header__nav__option">
                       <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
                       <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
-                      <a href="/Admin/TEST LIST CART UPDATE/cart.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
+                      <a href="/Customer/Cart/listcard.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
                       ${retrievedValue === null ? `
                       <a href="../LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon_header"></i></a>
                         ` : `
