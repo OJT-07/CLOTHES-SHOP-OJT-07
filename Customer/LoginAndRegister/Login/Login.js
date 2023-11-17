@@ -183,15 +183,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ---------------------- Fetch API ---------------------- 
+
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const apiUrl = 'http://localhost:4001/api/users/login';
+    const apiUrl = 'http://localhost:4001/api/auth/login';
 
     try {
+
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
