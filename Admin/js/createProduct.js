@@ -98,6 +98,15 @@ document.getElementById('removeAllColorButton').addEventListener('click', functi
     updateColorInput();
 });
 
+function getBearerToken() {
+    const userString = localStorage.getItem('user');
+
+    if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+    }
+    return null;
+}
 
 
 function createProduct() {
@@ -134,10 +143,11 @@ function createProduct() {
     };
 
     console.log(productData);
-
+    const token = getBearerToken();
     fetch('http://localhost:4001/api/products', {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(productData)

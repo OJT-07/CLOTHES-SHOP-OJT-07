@@ -1,3 +1,13 @@
+function getBearerToken() {
+    const userString = localStorage.getItem('user');
+
+    if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+    }
+    return null;
+}
+
 function addActionButtons(row, product, count) {
     const editButton = createButton('Edit', 'btn-warning');
     const deleteButton = createButton('Delete', 'btn-danger');
@@ -28,7 +38,13 @@ function createButton(text, className) {
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:4001/api/products');
+        const token = getBearerToken();
+        const response = await fetch('http://localhost:4001/api/products', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
         const data = await response.json();
         return data;
     } catch (error) {
@@ -135,8 +151,13 @@ function closePopup() {
 
 async function deleteItem(_id, count) {
     try {
+        const token = getBearerToken();
         const response = await fetch(`http://localhost:4001/api/products/${_id}`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
         });
 
         if (!response.ok) {
