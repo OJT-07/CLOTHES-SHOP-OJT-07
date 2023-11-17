@@ -90,11 +90,9 @@ document.getElementById("registrationForm").addEventListener("submit", function(
   console.log("Password:", password);
   console.log("Confirm Password:", passwordConfirm);
 
-  if(password !== passwordConfirm) {
-  alert("Password confirmation must similar to the password");
-  }
+  
   //goi api
-  const apiUrl = "http://localhost:4001/api/users/register";
+  const apiUrl = "http://localhost:4001/api/auth/register";
   const formData = {
     name: fullname,
     phone: phone,
@@ -103,30 +101,37 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     password: password,
   };
 
-  fetch(apiUrl, {
-    method: "POST", // Adjust the method based on your API requirements
-    headers: {
-      "Content-Type": "application/json",
-      // Add any additional headers if required by your API
-    },
-    body: JSON.stringify(formData),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // Handle the API response data here
-      console.log("API Response:", data);
-      alert("Registration successful!");
-    })
-    .catch((error) => {
-      // Handle errors during the fetch operation
-      console.error("Fetch Error:", error);
-      alert("Registration failed. Please try again.");
-    });
+  if(password !== passwordConfirm) {
+    alert("Password confirmation must similar to the password");
+    }else{
+      fetch(apiUrl, {
+        method: "POST", // Adjust the method based on your API requirements
+        headers: {
+          "Content-Type": "application/json",
+          // Add any additional headers if required by your API
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle the API response data here
+          console.log("API Response:", data);
+          alert("Registration successful!");
+          window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
+          
+        })
+        .catch((error) => {
+          // Handle errors during the fetch operation
+          console.error("Fetch Error:", error);
+          alert("Registration failed. Please try again.");
+        });
+    
+    }
 
 
 
