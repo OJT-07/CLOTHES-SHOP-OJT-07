@@ -201,22 +201,20 @@ async function updateTotalPrice() {
     try {
         const data = await fetchData();
 
+        let totalPrice = 0;
+
         data.allCartItem.forEach((cartItem) => {
+
             const cartItemElement = document.getElementById(cartItem._id);
             const cartPriceElement = cartItemElement.querySelector('.cart__price');
 
             const updatedProductPrice = cartItem.productId.price * cartItem.quantity;
             cartPriceElement.innerHTML = "$ " + updatedProductPrice.toFixed(2);
-        });
 
-        let totalPrice = 0;
-        data.allCartItem.forEach((cartItem) => {
             totalPrice += cartItem.cart_item_price;
+            const TotalCheckout = document.getElementById("TotalPrice");
+            TotalCheckout.innerHTML = "$ " + totalPrice.toFixed(2);
         });
-
-        const TotalCheckout = document.getElementById("TotalPrice");
-        TotalCheckout.innerHTML = "$ " + totalPrice.toFixed(2);
-
     } catch (error) {
         console.error('Error updating total price:', error);
     }
