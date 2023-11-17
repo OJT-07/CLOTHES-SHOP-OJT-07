@@ -134,7 +134,7 @@ Validator.isRequired = function (selector, message) {
   return {
       selector: selector,
       test: function (value) {
-          return value ? undefined :  message || 'Please enter this field'
+          return value ? undefined :  message || 'Please fill out this field'
       }
   };
 }
@@ -145,15 +145,6 @@ Validator.isEmail = function (selector, message) {
       test: function (value) {
           var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
           return regex.test(value) ? undefined :  message || 'Invalid email';
-      }
-  };
-}
-
-Validator.minLength = function (selector, min, message) {
-  return {
-      selector: selector,
-      test: function (value) {
-          return value.length >= min ? undefined :  message || `Please enter a minimum of ${min} characters`;
       }
   };
 }
@@ -173,8 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
         formGroupSelector: '.form-group',
         errorSelector: '.form-message',
         rules: [
+            Validator.isRequired('#email'),
             Validator.isEmail('#email'),
-            Validator.minLength('#password')
+            Validator.isRequired('#password'),  
         ],
         onSubmit: function(data) {
             console.log(data);

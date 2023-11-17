@@ -3,7 +3,6 @@
 
 <head>
     <title>Male-Fashion | Template</title>
-    <link rel="stylesheet"  type="text/css" href="../../css/style.css">
 
     <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
 
@@ -194,6 +193,8 @@
                     </div>
                 </div>
             </div>
+            <div id="toast"></div>
+        </div>
         </div>
     </section>
     <!-- Latest Blog Section End -->
@@ -214,13 +215,18 @@
         // Function to handle adding a product to the cart
         const addToCart = (productId) => {
             console.log(`${productId}`);
+            const token = getBearerToken();
             const user = JSON.parse(localStorage.getItem("user"));
+            if(!user){
+                window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
+            }
             //Make a POST request to your cart API endpoint
             fetch('http://localhost:4001/api/carts', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                },
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
                 body: JSON.stringify({
                     _id: productId,
                     userId: user._id,
@@ -228,6 +234,8 @@
             })
             .then(response => response.json())
             .then(data => {
+                
+                showSuccessToast();
                 console.log('Product added to cart:', data);
                 // You can add any additional logic here, such as updating the UI to reflect the added item.
             })
@@ -235,51 +243,112 @@
                 console.error('Error adding product to cart:', error);
             });
         };
+    
         // Fetch products from the API
         const productListContainer = document.getElementById('productList');
         const apiUrl ="http://localhost:4001/api/products";
         fetch(apiUrl, {
-        mode: 'cors',
-        headers: {
-          'Access-Control-Allow-Origin': '*'
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*'
             }
         })
-            .then((response) => {
+        .then((response) => {
             console.log(response);
             return response.json();
         })
-
-            .then((data) => {
+        .then((data) => {
             console.log(data);
-            data.products.forEach((product) => {
-            const productItem = document.createElement("div");
-                    productItem.classList.add('col-lg-3', 'col-md-6', 'col-sm-6', 'col-md-6', 'col-sm-6', 'mix', 'new-arrivals');
-                    productItem.innerHTML = `
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg">
-                                <a href="../Product/productDetail.html?id=${product._id}"><img src= "${product.image}" style="height: 260px; width: 260px;"/></a>
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
-                                    <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                    <li><a href="#"><img src="/img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>${product.name}</h6>
-                              
-                               <a class="add-cart" style="cursor: pointer;" onclick="addToCart('${product._id}')">+ Add To Cart</a>
-                               
-                                <h5>${product.price}</h5>
-                                
-                            </div>
+            // Display a maximum of 8 products
+            data.products.slice(0, 8).forEach((product) => {
+                const productItem = document.createElement("div");
+                productItem.classList.add('col-lg-3', 'col-md-6', 'col-sm-6', 'col-md-6', 'col-sm-6', 'mix', 'new-arrivals');
+                productItem.innerHTML = `
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg">
+                            <a href="../Product/productDetail.html?id=${product._id}"><img src="${product.image}" style="height: 260px; width: 260px;"/></a>
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
+                                <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                <li><a href="#"><img src="/img/icon/search.png" alt=""></a></li>
+                            </ul>
                         </div>
-                    `;
-                    productListContainer.appendChild(productItem);
-                });
+                        <div class="product__item__text">
+                            <h6>${product.name}</h6>
+                            <a class="add-cart" style="cursor: pointer;" onclick="addToCart('${product._id}')">+ Add To Cart</a>
+                            <h5>${product.price}</h5>
+                        </div>
+                    </div>
+                `;
+                
+                productListContainer.appendChild(productItem);
             });
+        });
+        // Toast
+        function getBearerToken() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+    }
+    return null;
+}
+function showSuccessToast() {
+    toast({
+        title: "Succces!",
+        message: "Added product to cart successfully.",
+        type: "success",
+        duration: 3000
+    });
+}
 
-       
+function toast({ title = "", message = "", type = "", duration}) {
+    const main = document.getElementById("toast");
+    if (main) {
+        const toast = document.createElement("div");
+
+        // Auto remove toast
+        const autoRemoveId = setTimeout(function() {
+            main.removeChild(toast);
+        }, duration + 1000);
+
+        // Remove toast when clicked
+        toast.onclick = function(e) {
+            if (e.target.closest(".toast__close")) {
+                main.removeChild(toast);
+                clearTimeout(autoRemoveId);
+            }
+        };
+
+        const icons = {
+            success: "fas fa-check-circle",
+            error: "fas fa-exclamation-circle",
+            info: "fas fa-info-circle",
+            warning: "fas fa-exclamation-circle",
+        };
+        const icon = icons[type];   
+        const delay = (duration / 1000).toFixed(2);
+
+        toast.classList.add("toaster", `toast--${type}`);
+        toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+        toast.innerHTML = `
+                    <div class="toast__icon">
+                        <i class="${icon}"></i>
+                    </div>
+                    <div class="toast__body">
+                        <h3 class="toast__title">${title}</h3>
+                        <p class="toast__msg">${message}</p>
+                    </div>
+                    <div class="toast__close">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+        main.appendChild(toast);
+    }
+}
     </script>
+    
 </body>
 <footer>
     <common-footer></common-footer>
