@@ -2,7 +2,7 @@ var retrievedValue = localStorage.getItem('user');
 var script = document.createElement('script');
 
 
-script.src = '/Customer/LoginAndRegister/Login/logout.js'; 
+script.src = '/Customer/LoginAndRegister/Login/logout.js';
 document.head.appendChild(script);
 class CommonFooter extends HTMLElement {
     constructor() {
@@ -79,8 +79,8 @@ class CommonHeader extends HTMLElement {
     connectedCallback() {
         var retrievedValue = localStorage.getItem('user');
         console.log(retrievedValue);
-      
-            this.innerHTML = `
+
+        this.innerHTML = `
             <script src="/Customer/LoginAndRegister/Login/logout.js"></script>
             <link rel="stylesheet" href="../CSS/header.css">
             <header class="header">
@@ -98,7 +98,7 @@ class CommonHeader extends HTMLElement {
                           <li><a href="../Product/productList.html">Shop</a></li>
                           <li><a href="#">Pages</a>
                               <ul class="dropdown">
-                                  <li><a href="../Product/productDetail.html">Shop Details</a></li>
+                                 
                                   <li><a href="../shopping-cart.html">Shopping Cart</a></li>
                                   <li><a href="../Checkout/index.html">Check Out</a></li>
                               </ul>
@@ -106,9 +106,9 @@ class CommonHeader extends HTMLElement {
                       </ul>
                   </nav>
               </div>
-                  <div class="col-lg-3 col-md-3">
+                <div class="col-lg-3 col-md-3">
                   <div class="header__nav__option">
-                      <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
+                    
                       <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
                       <a href="/Customer/Cart/listcard.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
                       ${retrievedValue === null ? `
@@ -118,7 +118,7 @@ class CommonHeader extends HTMLElement {
                         `}  
                   </div>
               </div>
-              </div>
+           
               <div class="canvas__open"><i class="fa fa-bars"></i></div>
           </div>
       </header>
