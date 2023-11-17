@@ -3,7 +3,6 @@
 
 <head>
     <script src="../../js/common.js"></script>
-    <common-header></common-header>
     <common-css></common-css>
 </head>
 
@@ -13,40 +12,43 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
+
                         <div class="shop__sidebar__search">
                             <form action="#">
                                 <input type="text" placeholder="Search...">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>
                         </div>
+
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
+
+                                <!-- Category -->
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
                                     </div>
+
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__categories">
-                                                <ul class="nice-scroll">
-                                                    <li><a href="#">Men (20)</a></li>
-                                                    <li><a href="#">Women (20)</a></li>
-                                                    <li><a href="#">Bags (20)</a></li>
-                                                    <li><a href="#">Clothing (20)</a></li>
-                                                    <li><a href="#">Shoes (20)</a></li>
-                                                    <li><a href="#">Accessories (20)</a></li>
-                                                    <li><a href="#">Kids (20)</a></li>
-                                                    <li><a href="#">Kids (20)</a></li>
-                                                    <li><a href="#">Kids (20)</a></li>
+                                        <div class="card-body ">
+                                            <div class="shop__sidebar__categories ">
+                                                <ul class="nice-scroll ">
+                                                    <li>${product.category}</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
+                                <!-- Branding -->
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
                                     </div>
+
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__brand">
@@ -60,10 +62,14 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Price -->
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
                                     </div>
+
                                     <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
@@ -78,11 +84,16 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
+                                <!-- Size -->
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFour">Size</a>
                                     </div>
+
                                     <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__size">
@@ -113,11 +124,16 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
+                                <!-- Color -->
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
                                     </div>
+
                                     <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__color">
@@ -151,11 +167,16 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
+
+                                <!-- Tag -->
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
                                     </div>
+
                                     <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__tags">
@@ -169,6 +190,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -177,6 +199,44 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const productList = document.getElementById("collapseOne");
+            const apiUrl = "http://localhost:4001/api/products";
+            fetch(apiUrl, {
+                    mode: 'cors',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                })
+                .then((response) => {
+                    console.log(response);
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    data.products.forEach((product) => {
+                        const productItem = document.createElement("div");
+                        productItem.className = "collapse show";
+                        productItem.innerHTML = `
+                                <div class="card-body">
+                                    <div class="shop__sidebar__categories">
+                                        <ul class="nice-scroll">
+                                            <li>${product.category}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+              `;
+                        productList.appendChild(productItem);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error fetching product data:", error);
+                });
+        });
+    </script>
+
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
@@ -188,12 +248,5 @@
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
 </body>
-<footer>
-    <common-footer></common-footer>
-</footer>
-
-<footer>
-    <common-footer></common-footer>
-</footer>
 
 </html>
