@@ -2401,6 +2401,7 @@ ol {
     font-weight: 700;
     text-transform: uppercase;
     padding-bottom: 25px;
+    padding-left: 10px;
 }
 
 .shopping__cart__table table tbody tr {
@@ -2452,6 +2453,8 @@ ol {
     text-align: center;
     color: #111111;
     font-size: 16px;
+    font-weight: 700;
+    margin-left: 30px;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 p {
@@ -2461,6 +2464,7 @@ ol {
     color: #111111;
     font-size: 16px;
     margin-top: 15px;
+    font-weight: 700;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 .qtybtn {
@@ -2475,6 +2479,7 @@ ol {
     font-size: 18px;
     font-weight: 700;
     width: 140px;
+    margin-bottom: 20px;
 }
 
 .shopping__cart__table table tbody tr td.cart__close i {
@@ -4039,3 +4044,12 @@ ol {
     color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
+
+#sizeDropdown {
+    border: 1.5px solid black;
+}
+
+#sizeDropdown option:checked {
+    background-color: transparent; /* Loại bỏ màu nền khi phần tử được chọn */
+}
+
