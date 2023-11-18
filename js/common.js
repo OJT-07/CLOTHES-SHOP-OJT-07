@@ -108,7 +108,6 @@ class CommonHeader extends HTMLElement {
               </div>
                   <div class="col-lg-3 col-md-3">
                   <div class="header__nav__option">
-                      <a href="#" class="search-switch"><img src="../img/icon/search.png" alt=""></a>
                       <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
                       <a href="/Admin/TEST LIST CART UPDATE/cart.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
                       ${retrievedValue === null ? `
@@ -116,7 +115,7 @@ class CommonHeader extends HTMLElement {
                         ` : `
                         <a onclick="logout() "><i class="fa-solid fa-right-to-bracket icon_header"></i></a>
                         `}  
-                  </div>
+                  
               </div>
               </div>
               <div class="canvas__open"><i class="fa fa-bars"></i></div>
