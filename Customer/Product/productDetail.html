@@ -186,10 +186,23 @@
     </section>
 
     <script>
+
+function getBearerToken() {
+    const userString = localStorage.getItem('user');
+
+    if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+    }
+    return null;
+}
+
       (async function productDetail() {
         // Lấy URL hiện tại
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
+
+        const token = getBearerToken();
 
         try {
           const response = await fetch(
@@ -197,10 +210,13 @@
             {
               method: "GET",
               headers: {
+                'Authorization': `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
             }
           );
+
+
 
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -302,8 +318,9 @@
               const response = await fetch("http://localhost:4001/api/carts", {
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json",
-                },
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
                 body: JSON.stringify(itemData),
               });
               console.log(

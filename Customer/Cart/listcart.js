@@ -54,8 +54,9 @@ async function deleteItem(_id) {
         const data = await response.json();
         console.log('Success:', data);
         updateTable(_id)
+        updateTotalPrice();
 
-        await renderData();
+        // await renderData();
     } catch (error) {
         console.error('Error:', error);
     }
@@ -68,11 +69,13 @@ function updateTable(productId) {
 
 async function renderData() {
     try {
+        const cartItemsElement = document.querySelector('#cart-items');
         const data = await fetchData();
         console.log('Data', data);
 
-        const cartItemsElement = document.querySelector('#cart-items');
-        const quantityUpdate = document.querySelector('#quantityUpdate');
+        if (!data || !Array.isArray(data.allCartItem)) {
+            return;
+        }
 
         //    console.log(quantityUpdate);
 
@@ -80,11 +83,21 @@ async function renderData() {
         data.allCartItem.forEach((cartItem) => {
             const Item = document.createElement("tr");
             Item.setAttribute("id", `${cartItem._id}`)
+            
             totalPrice += cartItem.cart_item_price;
-            // Create a button element and attach an event listener
+
+
             const deleteButton = document.createElement("button");
             deleteButton.innerHTML = '<i class="fa fa-close"></i>';
+
+            deleteButton.style.border = 'none'; 
+            deleteButton.style.background = 'none'; 
+            deleteButton.style.padding = '0'; 
+            deleteButton.style.cursor = 'pointer'; 
+            deleteButton.style.outline = 'none'; 
             deleteButton.addEventListener('click', () => deleteItem(cartItem._id));
+
+            
 
             Item.innerHTML = `
                 <td class="product__cart__item">
@@ -98,18 +111,26 @@ async function renderData() {
                 </td>
                 <td class="quantity__item">
                     <div class="quantity">
-                        <div class="pro-qty-2">
-                            <p> ${cartItem.size}</p>
+                        <div class="pro-qty-2" id="updateSize">
+                            <select class="form-control" id="colorDropdown">
+                                ${cartItem.productId.size.map((size) => `<option value="${size}" ${size === cartItem.size ? 'selected' : ''}>${size}</option>`).join('')}
+                            </select>
                         </div>
                     </div>
                 </td>
+
                 <td class="quantity__item">
-                    <div class="quantity">
-                        <div class="pro-qty-2">
-                            <p id="colorProduct"> ${cartItem.color}</p>
+                    <div class="quantity" id="sizeDropdownContainer">
+                        <div class="pro-qty-2" style="display: flex; align-items: center; width: 100%;">
+                            <select style="background-color: ${cartItem.color}" class="form-control" id="sizeDropdown">
+                                ${cartItem.productId.color.map((color) => `
+                                    <option value="${color}" style="background-color: ${color};" ${color === cartItem.color ? 'selected' : ''}></option>
+                                `).join('')}
+                            </select>
                         </div>
                     </div>
                 </td>
+
                 <td class="quantity__item">
                     <div class="quantity">
                         <div class="pro-qty-2">
@@ -121,7 +142,7 @@ async function renderData() {
                 <td class="cart__close"></td>
 
             `;
-            // Append the button to the last cell
+
             Item.querySelector('.cart__close').appendChild(deleteButton);
 
             cartItemsElement.appendChild(Item);
@@ -138,6 +159,25 @@ async function renderData() {
     }
 }
 
+
+document.addEventListener('input', function (event) {
+    if (event.target && event.target.id === 'quantityUpdate') {
+        const _id = event.target.closest('tr').id;
+        const newQuantity = parseInt(event.target.value, 10);
+        updateQuantityAndPrice(_id, newQuantity);
+    } else if (event.target && (event.target.id === 'colorDropdown' || event.target.id === 'sizeDropdown')) {
+        const _id = event.target.closest('tr').id;
+        const value = event.target.value;
+
+        if (event.target.id === 'colorDropdown') {
+            updateCartItemSize(_id, value);
+        } else if (event.target.id === 'sizeDropdown') {
+            updateCartItemColor(_id, value);
+        }
+    }
+});
+
+
 async function updateQuantityAndPrice(_id, newQuantity) {
     try {
         const token = getBearerToken();
@@ -150,13 +190,11 @@ async function updateQuantityAndPrice(_id, newQuantity) {
             },
         });
 
-
         const responseItem = await getCartItemById.json();
 
-        // Access the price from the productId object
         const price = responseItem.cart_item.productId.price;
 
-        console.log('Product Price:', price);
+        // console.log('Product Price:', price);
 
 
         if (getCartItemById) {
@@ -173,11 +211,9 @@ async function updateQuantityAndPrice(_id, newQuantity) {
                 throw new Error('Network response was not ok');
             }
 
-            const data = await response.json();
             // console.log('Success:', data);
-
-            await renderData();
             updateTotalPrice();
+            await renderData();
         }
 
     } catch (error) {
@@ -186,44 +222,105 @@ async function updateQuantityAndPrice(_id, newQuantity) {
     // console.log(_id + "  "+ newQuantity);
 }
 
-document.addEventListener('input', function (event) {
-
-    if (event.target && event.target.id === 'quantityUpdate') {
-        const _id = event.target.closest('tr').id;
-
-        const newQuantity = parseInt(event.target.value, 10);
-
-        updateQuantityAndPrice(_id, newQuantity);
-    }
-});
-
 async function updateTotalPrice() {
     try {
         const data = await fetchData();
 
+        let totalPrice = 0;
+
         data.allCartItem.forEach((cartItem) => {
+
             const cartItemElement = document.getElementById(cartItem._id);
-            const cartPriceElement = cartItemElement.querySelector('.cart__price');
+            const cartPriceElement = cartItemElement.querySelector('#cartPrice');
 
             const updatedProductPrice = cartItem.productId.price * cartItem.quantity;
             cartPriceElement.innerHTML = "$ " + updatedProductPrice.toFixed(2);
-        });
 
-        let totalPrice = 0;
-        data.allCartItem.forEach((cartItem) => {
             totalPrice += cartItem.cart_item_price;
+            const TotalCheckout = document.getElementById("TotalPrice");
+            TotalCheckout.innerHTML = "$ " + totalPrice.toFixed(2);
         });
-
-        const TotalCheckout = document.getElementById("TotalPrice");
-        TotalCheckout.innerHTML = "$ " + totalPrice.toFixed(2);
-
     } catch (error) {
         console.error('Error updating total price:', error);
     }
 }
 
+function updateCartItemSize(itemId, newSizeIndex) {
+    const token = getBearerToken();
+    const url = `http://localhost:4001/api/cart-item/${itemId}`;
+    const data = {
+        size: newSizeIndex,
+    };
+
+    fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    })
+    .then(data => {
+        console.log('Size updated successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error updating size:', error);
+    });
+}
+
+async function updateCartItemColor(itemId, newColorIndex) {
+    try {
+        const token = getBearerToken();
+        const url = `http://localhost:4001/api/cart-item/${itemId}`;
+        const data = {
+            color: newColorIndex,
+        };
+
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const updatedData = await response.json();
+        console.log('Color updated successfully:', updatedData);
+        updateCorlorItem();
+
+        // await renderData();
+
+    } catch (error) {
+        console.error('Error updating color:', error);
+    }
+}
+
+async function updateCorlorItem() {
+    try {
+        const data = await fetchData();
+
+        data.allCartItem.forEach((cartItem) => {
+            const cartItemElement = document.getElementById(cartItem._id);
+
+            const colorSelect  = cartItemElement.querySelector('#sizeDropdown');  
+            colorSelect.style.backgroundColor = cartItem.color;
+        });
+    } catch (error) {
+        console.error('', error);
+    }
+}
+
+
 renderData();
-
-
-
-
