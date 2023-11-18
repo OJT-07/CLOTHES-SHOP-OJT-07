@@ -1,46 +1,74 @@
+function getBearerToken() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+    }
+    return null;
+}
+
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id'); // Assuming you have a parameter named 'id' in your URL
+    const token = getBearerToken();
     const name = document.getElementById("name");
     const address = document.getElementById("address");
     const phone = document.getElementById("phone");
     const email = document.getElementById("email");
-    const form = document.getElementById("checkoutForm");
-    const users = JSON.parse(localStorage.getItem("user"));
-    console.log("🚀 ~ file: checkout.js:57 ~ document.addEventListener ~ users:", users);
+    try {
+        const response = await fetch('http://localhost:4001/api/auth/get_me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
 
-    // Display information on the form
-        name.value = users?.name;
-        phone.value = users?.phone;
-        email.value = users?.email;
 
-    form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const postData = {
-            name: name.value,
-            phone: phone.value,
-            email: email.value,
-        };
+        const responseCartsItem = await fetch('http://localhost:4001/api/carts', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log("🚀 ~ file: checkout.js:35 ~ document.addEventListener ~ responseCartsItem:", responseCartsItem)
 
-        try {
-            const response = await fetch(`http://localhost:4001/api/users/654a2eb6a017069f884a1bfc`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(postData),
-            });
-
-            if (!response.ok) {
-                throw new Error("Unable to update data");
-            }
-
-            const updatedData = await response.json();
-            console.log("Item updated:", updatedData);
-            // Handle success after updating
-        } catch (error) {
-            console.error("Error:", error);
+        if (!response.ok) {
+            throw new Error('Unable to fetch user data');
         }
+
+        if(!responseCartsItem.ok){
+            throw new Error('Unable to fetch cart items');
+        }
+
+
+        const userData = await response.json();
+
+        const cartItems = await responseCartsItem.json();
+        // Populate form fields with fetched data
+        name.value = userData?.user?.name;
+        address.value = userData?.user?.address;
+        phone.value = userData?.user?.phone;
+        email.value = userData?.user?.email;
+        // Populate other fields as needed
+
+        let total = 0
+        cartItems.allCartItem.forEach((item)=>{
+            total += item.cart_item_price;
+            
+        })
+        console.log(total);
+        const cartTotal = document.getElementById("total");
+        cartTotal.innerHTML = "$ " + total.toFixed(2);
+
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+    const form = document.getElementById("checkoutForm");
+    form.addEventListener("submit", async (event) => {
+        // Your form submission logic remains here
     });
 });
+
