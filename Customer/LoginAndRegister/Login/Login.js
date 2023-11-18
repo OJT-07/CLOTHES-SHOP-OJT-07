@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ---------------------- Fetch API ---------------------- 
+
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -184,6 +185,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const apiUrl = 'http://localhost:4001/api/auth/login';
 
     try {
+
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
