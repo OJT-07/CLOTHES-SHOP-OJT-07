@@ -12,26 +12,16 @@
   <style>
     .color-label {
       border: 2px solid transparent;
-      /* Set initial border style */
       cursor: pointer;
-      /* Add a pointer cursor to indicate interactivity */
       padding: 10px;
-      /* Adjust the padding around the color label */
       border-radius: 50%;
-      /* Make the color label a circle */
     }
-
     .color-label.selected {
       border-color: #f0f0f0;
-      /* Set the border color for the selected color */
       font-weight: bold;
-      /* Make the selected color bold */
       background-color: #f0f0f0;
-      /* Set the background color for the selected color */
       padding: 16px;
-      /* Adjust the padding for the selected color label */
       border-radius: 50%;
-      /* Make the selected color label a circle */
     }
   </style>
 
@@ -73,56 +63,19 @@
           <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
               <div class="product__details__text">
-                <h4 id="product-name">Hooded thermal anorak</h4>
+                <h4 id="product-name"></h4>
 
-                <h3 id="product-price">$0</h3>
-                <p id="product-subdescription">
-                  Coat with quilted lining and an adjustable hood. Featuring
-                  long sleeves with adjustable cuff tabs, adjustable asymmetric
-                  hem with elastic side tabs and a front zip fastening with
-                  placket.
-                </p>
+                <h3 id="product-price"></h3>
+                <p id="product-subdescription"></p>
                 <div class="product__details__option">
-                  <div class="product__details__option__size" id="product-size">
-                    <span>Size:</span>
-                    <label for="xxl"
-                      >xxl
-                      <input type="radio" id="xxl" />
-                    </label>
-                    <label class="active" for="xl"
-                      >xl
-                      <input type="radio" id="xl" />
-                    </label>
-                    <label for="l"
-                      >l
-                      <input type="radio" id="l" />
-                    </label>
-                    <label for="sm"
-                      >s
-                      <input type="radio" id="sm" />
-                    </label>
-                  </div>
+                  <div
+                    class="product__details__option__size"
+                    id="product-size"
+                  ></div>
                   <div
                     class="product__details__option__color"
                     id="product-color"
-                  >
-                    <span>Color:</span>
-                    <label class="c-1" for="sp-1">
-                      <input type="radio" id="sp-1" />
-                    </label>
-                    <label class="c-2" for="sp-2">
-                      <input type="radio" id="sp-2" />
-                    </label>
-                    <label class="c-3" for="sp-3">
-                      <input type="radio" id="sp-3" />
-                    </label>
-                    <label class="c-4" for="sp-4">
-                      <input type="radio" id="sp-4" />
-                    </label>
-                    <label class="c-9" for="sp-9">
-                      <input type="radio" id="sp-9" />
-                    </label>
-                  </div>
+                  ></div>
                 </div>
                 <div class="product__details__cart__option">
                   <div class="quantity">
@@ -166,16 +119,7 @@
                     <div
                       class="product__details__tab__content"
                       id="product-description"
-                    >
-                      A Pocket PC is a handheld computer, which features many of
-                      the same capabilities as a modern PC. As is the case with
-                      any new technology product, the cost of a Pocket PC was
-                      substantial during it’s early release. Lorem ipsum dolor
-                      sit amet, consectetur adipisicing elit. Laboriosam
-                      reiciendis aut, distinctio non explicabo minima ullam
-                      iusto beatae aliquam facere assumenda quia, repudiandae
-                      et. Mollitia beatae ipsum dolore eos quis!
-                    </div>
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -201,6 +145,10 @@
         const id = urlParams.get("id");
 
         const token = getBearerToken();
+
+        if (!token) {
+          window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
+        }
 
         try {
           const response = await fetch(
@@ -273,8 +221,6 @@
           addToCartButton.addEventListener("click", async function (event) {
             event.preventDefault();
 
-            const user = JSON.parse(localStorage.getItem("user"));
-
             const selectedColor = document.querySelector(
               'input[name="color"]:checked'
             );
@@ -297,7 +243,6 @@
               quantity: quantity,
               _id: productId,
               category: category,
-              userId: user._id,
             };
 
             try {

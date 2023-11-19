@@ -216,8 +216,8 @@
         const addToCart = (productId) => {
             console.log(`${productId}`);
             const token = getBearerToken();
-            const user = JSON.parse(localStorage.getItem("user"));
-            if(!user){
+        
+            if(!token){
                 window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
             }
             //Make a POST request to your cart API endpoint
@@ -229,7 +229,6 @@
             },
                 body: JSON.stringify({
                     _id: productId,
-                    userId: user._id,
                 }),
             })
             .then(response => response.json())
