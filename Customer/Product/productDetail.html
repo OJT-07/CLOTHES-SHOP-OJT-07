@@ -4,8 +4,10 @@
     <common-css></common-css>
     <script src="../../js/common.js"></script>
     <common-header></common-header>
-    <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
-
+    <script
+      src="https://kit.fontawesome.com/c7429944f7.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <style>
     .color-label {
@@ -56,12 +58,10 @@
             <div style="margin: auto">
               <div class="tab-content">
                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                  <div class="product__details__pic__item" id="product-image">
-                    <!-- <img
-                      src="../../img/shop-details/product-big-2.png"
-                      alt=""
-                    /> -->
-                  </div>
+                  <div
+                    class="product__details__pic__item"
+                    id="product-image"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -186,19 +186,17 @@
     </section>
 
     <script>
+      function getBearerToken() {
+        const userString = localStorage.getItem("user");
 
-function getBearerToken() {
-    const userString = localStorage.getItem('user');
-
-    if (userString) {
-        const userData = JSON.parse(userString);
-        return userData.access_token || null;
-    }
-    return null;
-}
+        if (userString) {
+          const userData = JSON.parse(userString);
+          return userData.access_token || null;
+        }
+        return null;
+      }
 
       (async function productDetail() {
-        // Lấy URL hiện tại
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
 
@@ -210,13 +208,11 @@ function getBearerToken() {
             {
               method: "GET",
               headers: {
-                'Authorization': `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
             }
           );
-
-
 
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -226,7 +222,6 @@ function getBearerToken() {
 
           const product = data.product;
 
-          // Gán dữ liệu từ response vào các thẻ HTML tương ứng
           document.getElementById(
             "product-image"
           ).innerHTML = `<img src="${product.image}" alt="Product Image" style="height: 450px; width: 450px;">`;
@@ -246,10 +241,9 @@ function getBearerToken() {
           document.getElementById("product-subdescription").innerText =
             product.subDescription;
 
-          const colors = product.color; // Assuming product.color is an array of color codes
+          const colors = product.color;
 
           const colorDiv = document.getElementById("product-color");
-          // Clear the content in case there's any existing content
           colorDiv.innerHTML = "<span>Color:</span>";
 
           colors.forEach((colorCode) => {
@@ -260,16 +254,14 @@ function getBearerToken() {
       `;
           });
 
-          const sizes = product.size; // Assuming product.size is already an array
+          const sizes = product.size;
 
           const sizeDiv = document.getElementById("product-size");
-          // Clear the content in case there's any existing content
           sizeDiv.innerHTML = "<span>Size:</span>";
 
           sizes.forEach((size) => {
             sizeDiv.innerHTML += `
               <label for="${size.toLowerCase()}"
-                class="${size.toLowerCase() === "xl" ? "active" : ""}"
                 onclick="selectSize(this)">
                 ${size.toLowerCase()}
                 <input type="radio" id="${size.toLowerCase()}" name="size" value="${size}"/>
@@ -282,8 +274,7 @@ function getBearerToken() {
             event.preventDefault();
 
             const user = JSON.parse(localStorage.getItem("user"));
-            console.log("🚀 ~ file: productDetail.html:237 ~ user:", user._id);
-            // Get selected values
+
             const selectedColor = document.querySelector(
               'input[name="color"]:checked'
             );
@@ -295,15 +286,11 @@ function getBearerToken() {
             const productId = document.getElementById("product-id").innerText;
             const category = document.getElementById("category").innerText;
 
-            // Check if values are selected
             if (!selectedColor || !selectedSize) {
               alert("Please select color and size before adding to cart.");
               return;
-            } else {
-              alert("Add to cart successfully");
             }
 
-            // Prepare data object
             const itemData = {
               color: selectedColor.value,
               size: selectedSize.value,
@@ -313,22 +300,21 @@ function getBearerToken() {
               userId: user._id,
             };
 
-            // Send the data to the server (replace this with your actual endpoint)
             try {
               const response = await fetch("http://localhost:4001/api/carts", {
                 method: "POST",
                 headers: {
-                'Authorization': `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
                 body: JSON.stringify(itemData),
               });
-              console.log(
-                "🚀 ~ file: productDetail.html:273 ~ response:",
-                response
-              );
 
-              if (!response.ok) {
+              if (response) {
+                alert("Add to cart successfully");
+              }
+
+              if (!response) {
                 throw new Error("Network response was not ok");
               }
             } catch (error) {
@@ -343,19 +329,15 @@ function getBearerToken() {
 
     <script>
       function selectColor(label, colorCode) {
-        // Remove "selected" class from all color labels
         document.querySelectorAll(".color-label").forEach((el) => {
           el.classList.remove("selected");
         });
 
-        // Add "selected" class to the clicked label
         label.classList.add("selected");
 
-        // You can do additional actions with the colorCode if needed
         console.log(`Selected color: ${colorCode}`);
       }
       function selectSize(label) {
-        // Remove "active" class from all size labels
         console.log("Size label clicked:", label);
         document
           .querySelectorAll(".product__details__option__size label")
@@ -363,7 +345,6 @@ function getBearerToken() {
             el.classList.remove("active");
           });
 
-        // Add "active" class to the clicked label
         label.classList.add("active");
       }
     </script>
