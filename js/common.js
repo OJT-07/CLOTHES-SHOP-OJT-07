@@ -108,10 +108,6 @@ class CommonHeader extends HTMLElement {
               </div>
                 <div class="col-lg-3 col-md-3">
                   <div class="header__nav__option">
-<<<<<<< HEAD
-=======
-                    
->>>>>>> afac12aa047399c791a17361169c9c5b90ec5b8e
                       <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
                       <a href="/Customer/Cart/listcard.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
                       ${retrievedValue === null ? `

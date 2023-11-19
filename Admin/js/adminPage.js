@@ -52,7 +52,6 @@ async function fetchData() {
     }
 }
 
-let shouldLog = true;
 
 async function renderData() {
     try {
@@ -66,7 +65,10 @@ async function renderData() {
 
         container.innerHTML = '';
 
-        data.products.forEach((product, index) => {
+        // Reverse the products array
+        const reversedProducts = data.products.slice().reverse();
+
+        reversedProducts.forEach((product, index) => {
             let count = index + 1;
             const row = document.createElement('tr');
             row.setAttribute("id", "product" + count)
@@ -91,13 +93,14 @@ async function renderData() {
 
             addActionButtons(row, product, count);
             container.appendChild(row);
-            console.log(row);
+            // console.log(row);
         });
 
     } catch (error) {
         console.error('Error rendering data:', error);
     }
 }
+
 
 
 function truncateDescription(description, maxLength = 75) {

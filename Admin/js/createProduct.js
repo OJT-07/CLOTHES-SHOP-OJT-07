@@ -1,28 +1,18 @@
-function updateImageValue(inputElement) {
-    var imageUrl = inputElement.value;
+function updateImageValue() {
+    var imageUrl = document.getElementById('imageUrl').value;
     var holder = document.getElementById('holder');
     holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
 }
 
 function chooseImage() {
-    var choice = prompt("Chọn 1 để nhập đường dẫn hình ảnh, chọn 2 để chọn tệp tin");
-    if (choice === '1') {
-        var imageUrl = prompt("Nhập đường dẫn hình ảnh hoặc link"); 
-        if (imageUrl !== null && imageUrl !== "") {
-            document.getElementById('imageUrl').value = imageUrl;
-            var holder = document.getElementById('holder');
-            holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
-        }
-    } else if (choice === '2') {
         document.getElementById('imageFile').click();
-    }
 }
 
 function updateImageFileValue(inputElement) {
     var file = inputElement.files[0];
     var reader = new FileReader();
 
-    reader.onload = function() {
+    reader.onload = function () {
         var imageUrl = reader.result;
         var holder = document.getElementById('holder');
         holder.innerHTML = '<img src="' + imageUrl + '" style="max-height:100px;">';
@@ -31,7 +21,6 @@ function updateImageFileValue(inputElement) {
 
     reader.readAsDataURL(file);
 }
-
 
 function allowDrop(event) {
     event.preventDefault();
