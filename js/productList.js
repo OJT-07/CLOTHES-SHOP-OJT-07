@@ -30,18 +30,28 @@ const filterBySize = (size) => {
 };
 
 // ============================== Render Data ==============================
+let params = new URL(document.location).searchParams;
+
+let searchQuery = params.get("search");
+let category = params.get("category");
+let price1 = params.get("price1");
+let price2 = params.get("price2");
+let price = params.get("price2");
+let size = params.get("size");
+
 const renderData = async () => {
-  const response = await fetch("http://localhost:4001/api/products");
+  const URL = `http://localhost:4001/api/products?searchQuery=${
+    searchQuery ? searchQuery : ""
+  }&category=${category ? category : ""}&price1=${
+    price1 ? price1 : ""
+  }&price2=${price2 ? price2 : ""}&size${size ? size : ""}`;
+
+  const response = await fetch(URL);
   const data = await response.json();
   const productList = document.getElementById("product-list");
   let dataRender = data.products;
-  let params = new URL(document.location).searchParams;
 
-  let searchQuery = params.get("search");
-  let category = params.get("category");
-  let price1 = params.get("price1");
-  let price2 = params.get("price2");
-  let size = params.get("size");
+  console.log("dsadsadsadsadsad", price1);
 
   const searchInput = document.getElementById("search-input"); // Set the search input value based on the query parameter
   searchInput.value = searchQuery || ""; // Use empty string if searchQuery is null
