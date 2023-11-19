@@ -313,18 +313,32 @@ function deleteAllParams() {
 }
 
 // ==============================  Add To Cart ==============================
+// Add to cart
 const addToCart = (productId) => {
-  console.log(`${productId}`);
-  const user = JSON.parse(localStorage.getItem("user"));
-  //Make a POST request to your cart API endpoint
+  function getBearerToken() {
+    const userString = localStorage.getItem("user");
+
+    if (userString) {
+      const userData = JSON.parse(userString);
+      return userData.access_token || null;
+    }
+    return null;
+  }
+
+  const token = getBearerToken();
+
+  if (!token) {
+    window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
+  }
+
   fetch("http://localhost:4001/api/carts", {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       _id: productId,
-      userId: user._id,
     }),
   })
     .then((response) => response.json())
@@ -337,7 +351,6 @@ const addToCart = (productId) => {
       console.error("Error adding product to cart:", error);
     });
 };
-
 // ==============================  Toast ==============================
 function showSuccessToast() {
   toast({
