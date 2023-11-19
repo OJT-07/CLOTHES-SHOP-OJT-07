@@ -84,8 +84,8 @@ async function renderData() {
                     <span class="read-more" onclick="toggleDescription(this)">Read more</span>
                 </td>
                 <td>${product.subDescription}</td>
-                <td>${product.size}</td>
-                <td>${product.color}</td>
+                <td>${product.size.map((size) => `<div style="background-color: #5a9aaa; color: white; margin: 2px 0;">${size}</div>`).join('')}</td>
+                <td style="">${product.color.map((color) => `<div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden;  border: 0.1px solid #000; margin: 3px 0; background-color: ${color}; "></div>`).join('')}</td>
                 <td><img id="productImage" src="${product.image}" alt="Product Image"></td>
                 <td></td>
                 <td></td>

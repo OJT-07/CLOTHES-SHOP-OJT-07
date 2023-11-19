@@ -7,6 +7,29 @@ function getBearerToken() {
     return null;
 }
 
+async function hidePreloaderAfterRendering() {
+    try {
+        const token = getBearerToken();
+        await fetch("http://localhost:4001/api/carts", {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+        const preloader = document.getElementById("preloder");
+        if (preloader) {
+            preloader.style.display = "none";
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    hidePreloaderAfterRendering();
+});
+
 async function fetchData() {
     try {
         const token = getBearerToken();
@@ -89,27 +112,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-async function hidePreloaderAfterRendering() {
-    try {
-        const token = getBearerToken();
-        await fetch("http://localhost:4001/api/carts", {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
-        const preloader = document.getElementById("preloder");
-        if (preloader) {
-            preloader.style.display = "none";
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
 
-window.addEventListener("DOMContentLoaded", (event) => {
-    hidePreloaderAfterRendering();
-});
 
 
