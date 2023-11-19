@@ -5,7 +5,7 @@ function updateImageValue() {
 }
 
 function chooseImage() {
-        document.getElementById('imageFile').click();
+    document.getElementById('imageFile').click();
 }
 
 function updateImageFileValue(inputElement) {
@@ -61,7 +61,7 @@ function updateInput() {
 
 var selectedColors = [];
 
-document.getElementById('colorPicker').addEventListener('input', function(event) {
+document.getElementById('colorPicker').addEventListener('input', function (event) {
     var selectedColor = event.target.value;
     selectedColors.push(selectedColor);
     console.log(selectedColors);
@@ -77,12 +77,12 @@ function updateColorInput() {
 }
 
 // Example: Adding a button to remove the last color
-document.getElementById('removeLastColorButton').addEventListener('click', function() {
+document.getElementById('removeLastColorButton').addEventListener('click', function () {
     selectedColors.pop();
     updateColorInput();
 });
 
-document.getElementById('removeAllColorButton').addEventListener('click', function() {
+document.getElementById('removeAllColorButton').addEventListener('click', function () {
     selectedColors = [];
     updateColorInput();
 });
@@ -132,7 +132,9 @@ function createProduct() {
     };
 
     console.log(productData);
+
     const token = getBearerToken();
+
     fetch('http://localhost:4001/api/products', {
         method: 'POST',
         headers: {
@@ -141,14 +143,20 @@ function createProduct() {
         },
         body: JSON.stringify(productData)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            // Redirect to adminPage.html only when the POST request is successful
+            window.location.href = './adminPage.html';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
-        window.location.href = './adminPage.html';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
 }
 
