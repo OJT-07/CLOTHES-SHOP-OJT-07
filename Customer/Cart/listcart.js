@@ -67,6 +67,7 @@ function updateTable(productId) {
     deletedRow.remove();
 }
 
+
 async function renderData() {
     try {
         const cartItemsElement = document.querySelector('#cart-items');
@@ -120,13 +121,17 @@ async function renderData() {
                 </td>
 
                 <td class="quantity__item">
-                    <div class="quantity" id="sizeDropdownContainer">
-                        <div class="pro-qty-2" style="display: flex; align-items: center; width: 100%;">
-                            <select style="background-color: ${cartItem.color}" class="form-control" id="sizeDropdown">
-                                ${cartItem.productId.color.map((color) => `
-                                    <option value="${color}" style="background-color: ${color};" ${color === cartItem.color ? 'selected' : ''}></option>
-                                `).join('')}
-                            </select>
+                    <div class="quantity">
+                        <div  style="display: flex; align-items: center; width: 100%;">
+                        <div class="custom-select" data-item-id="${cartItem._id}" style="background-color: ${cartItem.color}">
+                        <div class="selected-option" id="selectedColor"></div>
+                        <div class="options">
+                            ${cartItem.productId.color.map((color) => `
+                                <div class="option" style="background-color: ${color};" data-value="${color}"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
                         </div>
                     </div>
                 </td>
@@ -154,10 +159,39 @@ async function renderData() {
 
         const TotalCheckout = document.getElementById("TotalPrice").innerHTML = "$ " + totalPrice + ".00";
 
+        document.querySelectorAll('.custom-select').forEach(function(customSelect) {
+            const selectedOption = customSelect.querySelector('.selected-option');
+            const colorOptions = customSelect.querySelectorAll('.options .option');
+        
+            selectedOption.addEventListener('click', function() {
+                customSelect.classList.toggle('open');
+            });
+        
+            colorOptions.forEach(function(option) {
+                option.addEventListener('click', function() {
+                    customSelect.classList.remove('open');
+        
+                    const itemId = customSelect.getAttribute('data-item-id');
+                    const newColorIndex = this.getAttribute('data-value');
+        
+                    updateCartItemColor(itemId, newColorIndex);
+                });
+            });
+            document.addEventListener('click', function(event) {
+                const isClickedInside = customSelect.contains(event.target);
+                if (!isClickedInside) {
+                    customSelect.classList.remove('open');
+                }
+            });
+        });
+        
+        
+
     } catch (error) {
         console.error('Error fetching or rendering data:', error);
     }
 }
+
 
 async function hidePreloaderAfterRendering() {
     try {
@@ -338,7 +372,7 @@ async function updateCorlorItem() {
         data.allCartItem.forEach((cartItem) => {
             const cartItemElement = document.getElementById(cartItem._id);
 
-            const colorSelect  = cartItemElement.querySelector('#sizeDropdown');  
+            const colorSelect  = cartItemElement.querySelector('.custom-select');  
             colorSelect.style.backgroundColor = cartItem.color;
         });
     } catch (error) {

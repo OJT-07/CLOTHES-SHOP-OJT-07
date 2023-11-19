@@ -7,29 +7,6 @@ function getBearerToken() {
     return null;
 }
 
-async function hidePreloaderAfterRendering() {
-    try {
-        const token = getBearerToken();
-        await fetch("http://localhost:4001/api/carts", {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
-        const preloader = document.getElementById("preloder");
-        if (preloader) {
-            preloader.style.display = "none";
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-window.addEventListener("DOMContentLoaded", (event) => {
-    hidePreloaderAfterRendering();
-});
-
 async function fetchData() {
     try {
         const token = getBearerToken();
@@ -77,8 +54,6 @@ async function renderData() {
     }
 }
 
-renderData()
-
 document.addEventListener("DOMContentLoaded", async () => {
     const token = getBearerToken();
     const name = document.getElementById("name");
@@ -110,6 +85,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     form.addEventListener("submit", async (event) => {
         // Your form submission logic remains here
     });
+});
+
+async function hidePreloaderAfterRendering() {
+    try {
+        await renderData();
+        const preloader = document.getElementById("preloder");
+        if (preloader) {
+            preloader.style.display = "none";
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    hidePreloaderAfterRendering();
 });
 
 
