@@ -65,7 +65,6 @@ async function renderData() {
 
         container.innerHTML = '';
 
-        // Reverse the products array
         const reversedProducts = data.products.slice().reverse();
 
         reversedProducts.forEach((product, index) => {
@@ -100,8 +99,6 @@ async function renderData() {
         console.error('Error rendering data:', error);
     }
 }
-
-
 
 function truncateDescription(description, maxLength = 75) {
     const truncatedText = description.length > maxLength ? description.substring(0, maxLength) + '...' : description;
