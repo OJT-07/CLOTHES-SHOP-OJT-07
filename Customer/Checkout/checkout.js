@@ -113,7 +113,22 @@ window.addEventListener("DOMContentLoaded", (event) => {
     hidePreloaderAfterRendering();
 });
 
-
+function showAlert() {
+    Swal.fire({
+      title: 'Male Fashion',
+      text: 'Do you want to confirm your order',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      // Check if the user clicked the "OK" button
+      if (result.isConfirmed) {
+        // Redirect to the specified URL
+        window.location.href = "/Customer/Checkout/viewthanks.html";
+      }
+    });
+  }
 function PostOther() {
     const token = getBearerToken();
     const url = `http://localhost:4001/api/orders`;
