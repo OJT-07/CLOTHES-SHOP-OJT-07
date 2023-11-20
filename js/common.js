@@ -132,6 +132,7 @@ class CommonHeader extends HTMLElement {
             <script src="/Customer/LoginAndRegister/Login/logout.js"></script>
             <link rel="stylesheet" href="../CSS/header.css">
             <header class="header">
+
           <div class="container">
               <div class="row">
                   <div class="col-lg-3 col-md-3">
@@ -147,7 +148,7 @@ class CommonHeader extends HTMLElement {
                           <li><a href="#">Pages</a>
                               <ul class="dropdown">
                                  
-                                  <li><a href="../shopping-cart.html">Shopping Cart</a></li>
+                                  <li><a href="../Master Page/contactUs.html">Contact Us</a></li>
                                   <li><a href="../Checkout/index.html">Check Out</a></li>
                               </ul>
                           </li>
