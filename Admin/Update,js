@@ -100,12 +100,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   const form = document.getElementById("Update-product");
 
   const token = getBearerToken();
+  const preloader = document.getElementById("preloder");
   const response = await fetch(`http://localhost:4001/api/products/${id}`, {
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
   },
   });
+  
+  if (preloader) {
+    preloader.style.display = "none";
+  }
 
   if (!response.ok) {
     throw new Error("Unable to fetch data");
@@ -125,7 +130,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   colorInput.value = data?.product?.color;
   itemImageInput.value = data?.product?.image;
   imagePreview.src = data?.product?.image;
-  console.log(data.product.image);
   // var categoryMap = ["T-shirt", "Shirt", "Bags", "Pants", "Jacket", "Other"];
 
   form.addEventListener("submit", async (event) => {
@@ -156,6 +160,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         body: JSON.stringify(updatedItem),
       });
 
+       
+
       if (!response.ok) {
         throw new Error("Unable to update data");
       }
@@ -168,6 +174,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
+
+
+      
+ 
 
 function updateImageValue(inputElement) {
   var imageUrl = inputElement.value;

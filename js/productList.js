@@ -140,6 +140,23 @@ const renderData = async () => {
   }
 };
 
+async function hidePreloaderAfterRendering() {
+  try {
+      await renderData(); 
+      const preloader = document.getElementById("preloder");
+      if (preloader) {
+          preloader.style.display = "none";
+      }
+  } catch (error) {
+      console.error('Error:', error);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  hidePreloaderAfterRendering();
+});
+
+
 // ============================== Search ==============================
 document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.getElementById("search-form");

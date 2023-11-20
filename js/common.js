@@ -137,19 +137,19 @@ class CommonHeader extends HTMLElement {
               <div class="row">
                   <div class="col-lg-3 col-md-3">
                       <div class="header__logo">
-                          <a href="../HomePage/Index.html"><img src=" /img/logo.png" alt=""></a>
+                          <a href="/Customer/HomePage/Index.html"><img src=" /img/logo.png" alt=""></a>
                       </div>
                   </div>
                   <div class="col-lg-6 col-md-6">
                   <nav class="header__menu mobile-menu">
                       <ul class="headerAll">
-                          <li ><a href="../HomePage/">Home</a></li>
-                          <li><a href="../Product/productList.html">Shop</a></li>
+                          <li ><a href="/Customer/HomePage/">Home</a></li>
+                          <li><a href="/Customer/Product/productList.html">Shop</a></li>
                           <li><a href="#">Pages</a>
                               <ul class="dropdown">
                                  
-                                  <li><a href="../Master Page/contactUs.html">Contact Us</a></li>
-                                  <li><a href="../Checkout/index.html">Check Out</a></li>
+                                  <li><a href="/Customer/Master Page/contactUs.html">Contact Us</a></li>
+                                  <li><a href="/Customer/Checkout/index.html">Check Out</a></li>
                               </ul>
                           </li>
                           </li>

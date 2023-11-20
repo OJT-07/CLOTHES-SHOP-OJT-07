@@ -1,312 +1,298 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <head>
-    <common-css></common-css>
-    <script src="../../js/common.js"></script>
-    <common-header></common-header>
-    <script
-      src="https://kit.fontawesome.com/c7429944f7.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <style>
-    .color-label {
-      border: 2px solid transparent;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 50%;
-    }
-    .color-label.selected {
-      border-color: #f0f0f0;
-      font-weight: bold;
-      background-color: #f0f0f0;
-      padding: 16px;
-      border-radius: 50%;
-    }
-  </style>
 
-  <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-      <div class="loader"></div>
+<head>
+  <common-css></common-css>
+  <script src="../../js/common.js"></script>
+  <common-header></common-header>
+  <script src="https://kit.fontawesome.com/c7429944f7.js" crossorigin="anonymous"></script>
+</head>
+<style>
+  .color-label {
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+  }
+
+  .color-label.selected {
+    border-color: #f0f0f0;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    padding: 16px;
+    border-radius: 50%;
+  }
+</style>
+
+<body>
+  <!-- Page Preloder -->
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Shop Details Section Begin -->
+  <section class="shop-details">
+    <div class="product__details__pic">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="product__details__breadcrumb">
+              <a href="../HomePage/Index.html">Home</a>
+              <a href="../Product/productList.html">Shop</a>
+              <span>Product Details</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div style="margin: auto">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                <div class="product__details__pic__item" id="product-image"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="product__details__content">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <div class="product__details__text">
+              <h4 id="product-name"></h4>
 
-    <!-- Shop Details Section Begin -->
-    <section class="shop-details">
-      <div class="product__details__pic">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="product__details__breadcrumb">
-                <a href="../HomePage/Index.html">Home</a>
-                <a href="../Product/productList.html">Shop</a>
-                <span>Product Details</span>
+              <h3 id="product-price"></h3>
+              <p id="product-subdescription"></p>
+              <div class="product__details__option">
+                <div class="product__details__option__size" id="product-size"></div>
+                <div class="product__details__option__color" id="product-color"></div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div style="margin: auto">
-              <div class="tab-content">
-                <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                  <div
-                    class="product__details__pic__item"
-                    id="product-image"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product__details__content">
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-lg-8">
-              <div class="product__details__text">
-                <h4 id="product-name"></h4>
-
-                <h3 id="product-price"></h3>
-                <p id="product-subdescription"></p>
-                <div class="product__details__option">
-                  <div
-                    class="product__details__option__size"
-                    id="product-size"
-                  ></div>
-                  <div
-                    class="product__details__option__color"
-                    id="product-color"
-                  ></div>
-                </div>
-                <div class="product__details__cart__option">
-                  <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="1" id="quantity" />
-                    </div>
+              <div class="product__details__cart__option">
+                <div class="quantity">
+                  <div class="pro-qty">
+                    <input type="text" value="1" id="quantity" />
                   </div>
-                  <a href="#" class="primary-btn">add to cart</a>
                 </div>
-
-                <div class="product__details__last__option">
-                  <ul>
-                    <li>
-                      <span>SKU:</span> <span id="product-id">12221</span>
-                    </li>
-                    <span style="display: inline"
-                      >Categories:
-                      <li id="category" value="" style="display: inline"></li>
-                    </span>
-                  </ul>
-                </div>
+                <a href="#" class="primary-btn">add to cart</a>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="product__details__tab">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      data-toggle="tab"
-                      href="#tabs-5"
-                      role="tab"
-                      >Description</a
-                    >
+
+              <div class="product__details__last__option">
+                <ul>
+                  <li>
+                    <span>SKU:</span> <span id="product-id">12221</span>
                   </li>
+                  <span style="display: inline">Categories:
+                    <li id="category" value="" style="display: inline"></li>
+                  </span>
                 </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tabs-5" role="tabpanel">
-                    <div
-                      class="product__details__tab__content"
-                      id="product-description"
-                    ></div>
-                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="product__details__tab">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Description</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tabs-5" role="tabpanel">
+                  <div class="product__details__tab__content" id="product-description"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <script>
-      function getBearerToken() {
-        const userString = localStorage.getItem("user");
+  <script>
+    function getBearerToken() {
+      const userString = localStorage.getItem("user");
 
-        if (userString) {
-          const userData = JSON.parse(userString);
-          return userData.access_token || null;
-        }
-        return null;
+      if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+      }
+      return null;
+    }
+
+    (async function productDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+
+      const token = getBearerToken();
+
+      if (!token) {
+        window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
       }
 
-      (async function productDetail() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get("id");
+      try {
+        const response = await fetch(
+          `http://localhost:4001/api/products/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-        const token = getBearerToken();
+          const preloader = document.getElementById("preloder");
+            if (preloader) {
+              preloader.style.display = "none";
+            }
 
-        if (!token) {
-          window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
 
-        try {
-          const response = await fetch(
-            `http://localhost:4001/api/products/${id}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
+        const data = await response.json();
 
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
+        const product = data.product;
 
-          const data = await response.json();
+        document.getElementById(
+          "product-image"
+        ).innerHTML = `<img src="${product.image}" alt="Product Image" style="height: 450px; width: 450px;">`;
+        document.getElementById(
+          "product-name"
+        ).innerHTML = `<h4>${product.name}</h4>`;
+        document.getElementById(
+          "product-price"
+        ).innerText = `$${product.price}`;
+        document.getElementById(
+          "category"
+        ).innerText += ` ${product.category}`;
+        document.getElementById("product-id").innerText = product._id;
+        document.getElementById("product-description").innerText =
+          product.description;
 
-          const product = data.product;
+        document.getElementById("product-subdescription").innerText =
+          product.subDescription;
 
-          document.getElementById(
-            "product-image"
-          ).innerHTML = `<img src="${product.image}" alt="Product Image" style="height: 450px; width: 450px;">`;
-          document.getElementById(
-            "product-name"
-          ).innerHTML = `<h4>${product.name}</h4>`;
-          document.getElementById(
-            "product-price"
-          ).innerText = `$${product.price}`;
-          document.getElementById(
-            "category"
-          ).innerText += ` ${product.category}`;
-          document.getElementById("product-id").innerText = product._id;
-          document.getElementById("product-description").innerText =
-            product.description;
+        const colors = product.color;
 
-          document.getElementById("product-subdescription").innerText =
-            product.subDescription;
+        const colorDiv = document.getElementById("product-color");
+        colorDiv.innerHTML = "<span>Color:</span>";
 
-          const colors = product.color;
-
-          const colorDiv = document.getElementById("product-color");
-          colorDiv.innerHTML = "<span>Color:</span>";
-
-          colors.forEach((colorCode) => {
-            colorDiv.innerHTML += `
+        colors.forEach((colorCode) => {
+          colorDiv.innerHTML += `
         <label class="color-label" style="background-color: ${colorCode};" for="sp-${colorCode}" onclick="selectColor(this, '${colorCode}')">
           <input type="radio" id="sp-${colorCode}" name="color" value="${colorCode}" />
         </label>
       `;
-          });
+        });
 
-          const sizes = product.size;
+        const sizes = product.size;
 
-          const sizeDiv = document.getElementById("product-size");
-          sizeDiv.innerHTML = "<span>Size:</span>";
+        const sizeDiv = document.getElementById("product-size");
+        sizeDiv.innerHTML = "<span>Size:</span>";
 
-          sizes.forEach((size) => {
-            sizeDiv.innerHTML += `
+        sizes.forEach((size) => {
+          sizeDiv.innerHTML += `
               <label for="${size.toLowerCase()}"
                 onclick="selectSize(this)">
                 ${size.toLowerCase()}
                 <input type="radio" id="${size.toLowerCase()}" name="size" value="${size}"/>
               </label>
             `;
-          });
-
-          const addToCartButton = document.querySelector(".primary-btn");
-          addToCartButton.addEventListener("click", async function (event) {
-            event.preventDefault();
-
-            const selectedColor = document.querySelector(
-              'input[name="color"]:checked'
-            );
-
-            const selectedSize = document.querySelector(
-              'input[name="size"]:checked'
-            );
-            const quantity = document.getElementById("quantity").value;
-            const productId = document.getElementById("product-id").innerText;
-            const category = document.getElementById("category").innerText;
-
-            if (!selectedColor || !selectedSize) {
-              alert("Please select color and size before adding to cart.");
-              return;
-            }
-
-            const itemData = {
-              color: selectedColor.value,
-              size: selectedSize.value,
-              quantity: quantity,
-              _id: productId,
-              category: category,
-            };
-
-            try {
-              const response = await fetch("http://localhost:4001/api/carts", {
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(itemData),
-              });
-
-              if (response) {
-                alert("Add to cart successfully");
-              }
-
-              if (!response) {
-                throw new Error("Network response was not ok");
-              }
-            } catch (error) {
-              console.error("An error occurred:", error);
-            }
-          });
-        } catch (error) {
-          console.error("An error occurred:", error);
-        }
-      })();
-    </script>
-
-    <script>
-      function selectColor(label, colorCode) {
-        document.querySelectorAll(".color-label").forEach((el) => {
-          el.classList.remove("selected");
         });
 
-        label.classList.add("selected");
+        const addToCartButton = document.querySelector(".primary-btn");
+        addToCartButton.addEventListener("click", async function (event) {
+          event.preventDefault();
 
-        console.log(`Selected color: ${colorCode}`);
+          const selectedColor = document.querySelector(
+            'input[name="color"]:checked'
+          );
+
+          const selectedSize = document.querySelector(
+            'input[name="size"]:checked'
+          );
+          const quantity = document.getElementById("quantity").value;
+          const productId = document.getElementById("product-id").innerText;
+          const category = document.getElementById("category").innerText;
+
+          if (!selectedColor || !selectedSize) {
+            alert("Please select color and size before adding to cart.");
+            return;
+          }
+
+          const itemData = {
+            color: selectedColor.value,
+            size: selectedSize.value,
+            quantity: quantity,
+            _id: productId,
+            category: category,
+          };
+
+          try {
+            const response = await fetch("http://localhost:4001/api/carts", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(itemData),
+            });
+
+            if (response) {
+              alert("Add to cart successfully");
+            }
+
+            if (!response) {
+              throw new Error("Network response was not ok");
+            }
+          } catch (error) {
+            console.error("An error occurred:", error);
+          }
+        });
+      } catch (error) {
+        console.error("An error occurred:", error);
       }
-      function selectSize(label) {
-        console.log("Size label clicked:", label);
-        document
-          .querySelectorAll(".product__details__option__size label")
-          .forEach((el) => {
-            el.classList.remove("active");
-          });
+    })();
+  </script>
 
-        label.classList.add("active");
-      }
-    </script>
+  <script>
+    function selectColor(label, colorCode) {
+      document.querySelectorAll(".color-label").forEach((el) => {
+        el.classList.remove("selected");
+      });
 
-    <!-- Shop Details Section End -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.nice-select.min.js"></script>
-    <script src="/js/jquery.nicescroll.min.js"></script>
-    <script src="/js/jquery.magnific-popup.min.js"></script>
-    <script src="/js/jquery.countdown.min.js"></script>
-    <script src="/js/jquery.slicknav.js"></script>
-    <script src="/js/mixitup.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/main.js"></script>
-  </body>
-  <footer>
-    <common-footer></common-footer>
-  </footer>
+      label.classList.add("selected");
+
+      console.log(`Selected color: ${colorCode}`);
+    }
+    function selectSize(label) {
+      console.log("Size label clicked:", label);
+      document
+        .querySelectorAll(".product__details__option__size label")
+        .forEach((el) => {
+          el.classList.remove("active");
+        });
+
+      label.classList.add("active");
+    }
+  </script>
+
+  <!-- Shop Details Section End -->
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.nice-select.min.js"></script>
+  <script src="/js/jquery.nicescroll.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/jquery.countdown.min.js"></script>
+  <script src="/js/jquery.slicknav.js"></script>
+  <script src="/js/mixitup.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+<footer>
+  <common-footer></common-footer>
+</footer>
+
 </html>

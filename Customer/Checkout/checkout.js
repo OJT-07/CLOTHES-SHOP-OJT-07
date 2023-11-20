@@ -97,21 +97,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 });
 
-async function hidePreloaderAfterRendering() {
-    try {
-        await renderData();
+(() => {
+    const preloaderPromise = new Promise((resolve, reject) => {
         const preloader = document.getElementById("preloder");
         if (preloader) {
-            preloader.style.display = "none";
+            resolve(preloader);
+        } else {
+            reject(new Error("Preloader not found"));
         }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+    });
 
-window.addEventListener("DOMContentLoaded", (event) => {
-    hidePreloaderAfterRendering();
-});
+    preloaderPromise
+        .then((preloader) => {
+            return renderData().then(() => preloader);
+        })
+        .then((preloader) => {
+            preloader.style.display = "none";
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+})();
+
+
 
 function showAlert() {
     Swal.fire({
@@ -165,6 +173,7 @@ submitOrderButton.addEventListener('click', function (event) {
 
     PostOther();
 });
+
 
 
 
