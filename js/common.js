@@ -72,15 +72,63 @@ class CommonFooter extends HTMLElement {
       `;
     }
 }
+function getBearerToken() {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+        const userData = JSON.parse(userString);
+        return userData.access_token || null;
+    }
+    return null;
+}
+
+async function fetchData() {
+    try {
+        if (!localStorage.getItem('user')) {
+            window.location.href = 'Customer/LoginAndRegister/Login/Login.html';
+            return;
+        }
+
+        const token = getBearerToken();
+
+        const response = await fetch('http://localhost:4001/api/auth/get_me', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        console.log("🚀 ~ file: common.js:95 ~ fetchData ~ response:", response);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("🚀 ~ file: common.js:108 ~ fetchData ~ data:", data)
+
+        return data;
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+
+
+
 class CommonHeader extends HTMLElement {
     constructor() {
         super();
     }
     connectedCallback() {
-        var retrievedValue = localStorage.getItem('user');
-        console.log(retrievedValue);
-
-        this.innerHTML = `
+        // var retrievedValue = localStorage.getItem('user');
+        // console.log(retrievedValue);
+        fetchData().then(data => {
+            let role = "user"
+         if(data) { role =  data.user.role; }
+           
+            this.innerHTML = `
             <script src="/Customer/LoginAndRegister/Login/logout.js"></script>
             <link rel="stylesheet" href="../CSS/header.css">
             <header class="header">
@@ -93,8 +141,8 @@ class CommonHeader extends HTMLElement {
                   </div>
                   <div class="col-lg-6 col-md-6">
                   <nav class="header__menu mobile-menu">
-                      <ul>
-                          <li class="active"><a href="../HomePage/">Home</a></li>
+                      <ul class="headerAll">
+                          <li ><a href="../HomePage/">Home</a></li>
                           <li><a href="../Product/productList.html">Shop</a></li>
                           <li><a href="#">Pages</a>
                               <ul class="dropdown">
@@ -103,6 +151,8 @@ class CommonHeader extends HTMLElement {
                                   <li><a href="../Checkout/index.html">Check Out</a></li>
                               </ul>
                           </li>
+                          </li>
+                            ${role === "admin" ? '<li ><a href="../../Admin/adminPage.html">Admin</a></li>' : ''}
                       </ul>
                   </nav>
               </div>
@@ -110,7 +160,7 @@ class CommonHeader extends HTMLElement {
                   <div class="header__nav__option">
                       <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
                       <a href="/Customer/Cart/listcard.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
-                      ${retrievedValue === null ? `
+                      ${role? `
                       <a href="../LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon_header"></i></a>
                         ` : `
                         <a onclick="logout() "><i class="fa-solid fa-right-to-bracket icon_header"></i></a>
@@ -123,6 +173,7 @@ class CommonHeader extends HTMLElement {
       </header>
         
             `;
+        })
     }
 }
 class CommonCss extends HTMLElement {
