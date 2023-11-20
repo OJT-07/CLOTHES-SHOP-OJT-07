@@ -271,7 +271,7 @@ async function updateQuantityAndPrice(_id, newQuantity) {
 
             // console.log('Success:', data);
             updateTotalPrice();
-            await renderData();
+            // await renderData();
         }
 
     } catch (error) {
