@@ -7,6 +7,8 @@ function getBearerToken() {
     return null;
 }
 
+let cartItemIds = [];
+
 async function fetchData() {
     try {
         const token = getBearerToken();
@@ -17,17 +19,20 @@ async function fetchData() {
                 'Content-Type': 'application/json',
             },
         });
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
+
         return data;
 
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
+
+
 
 async function renderData() {
     try {
@@ -39,12 +44,17 @@ async function renderData() {
 
         let totalPrice = 0;
         data.allCartItem.forEach((cartItem, index) => {
+
+            cartItemIds.push(cartItem._id);
+
             const li = document.createElement('li');
             li.innerHTML = `${index + 1}. ${cartItem.productId.name} <span>$ ${cartItem.cart_item_price.toFixed(1)}</span>`;
             cartItemsElement.appendChild(li);
 
             totalPrice += cartItem.cart_item_price;
         });
+
+        console.log(cartItemIds);
 
         document.getElementById("TotalPrice").innerHTML = "$ " + totalPrice.toFixed(2);
 
@@ -103,6 +113,43 @@ window.addEventListener("DOMContentLoaded", (event) => {
     hidePreloaderAfterRendering();
 });
 
+
+function PostOther() {
+    const token = getBearerToken();
+    const url = `http://localhost:4001/api/orders`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({cartItemIds }),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    })
+    .then(data => {
+        console.log('Order created successfully:', data);
+
+        window.location.href = "/Customer/Checkout/viewthanks.html";
+    })
+    .catch(error => {
+        console.error('Error creat order:', error);
+    });
+}
+
+const submitOrderButton = document.querySelector('#postOther');
+
+submitOrderButton.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    PostOther();
+});
 
 
 
