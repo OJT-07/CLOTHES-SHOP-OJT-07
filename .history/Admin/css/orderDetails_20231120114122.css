@@ -1,0 +1,114 @@
+/* Global Styles */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* Section Styles */
+
+.gradient-custom {
+    background: linear-gradient(to right, #a8729a, #e6b3cc);
+    height: 100%;
+}
+
+
+/* Container Styles */
+
+.container {
+    height: 100%;
+}
+
+
+/* Card Styles */
+
+.card {
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card-header {
+    background-color: #ffffff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-footer {
+    background-color: #a8729a;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+/* Text Styles */
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+
+/* Progress Bar Styles */
+
+.progress {
+    border-radius: 16px;
+    height: 6px;
+}
+
+.progress-bar {
+    border-radius: 16px;
+    background-color: #a8729a !important;
+}
+
+
+/* Image Styles */
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+    .mb-5-sm {
+        margin-bottom: 5px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .ms-xl-5 {
+        margin-left: 1.25rem !important;
+    }
+}
+
+
+/* Miscellaneous Styles */
+
+hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+/* Override Bootstrap Styles */
+
+.card.shadow-0.border {
+    border: none;
+}
