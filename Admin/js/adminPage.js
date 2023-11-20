@@ -52,7 +52,6 @@ async function fetchData() {
     }
 }
 
-let shouldLog = true;
 
 async function renderData() {
     try {
@@ -66,7 +65,10 @@ async function renderData() {
 
         container.innerHTML = '';
 
-        data.products.forEach((product, index) => {
+        // Reverse the products array
+        const reversedProducts = data.products.slice().reverse();
+
+        reversedProducts.forEach((product, index) => {
             let count = index + 1;
             const row = document.createElement('tr');
             row.setAttribute("id", "product" + count)
@@ -82,8 +84,8 @@ async function renderData() {
                     <span class="read-more" onclick="toggleDescription(this)">Read more</span>
                 </td>
                 <td>${product.subDescription}</td>
-                <td>${product.size}</td>
-                <td>${product.color}</td>
+                <td>${product.size.map((size) => `<div style="background-color: #5a9aaa; color: white; margin: 2px 0;">${size}</div>`).join('')}</td>
+                <td style="">${product.color.map((color) => `<div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden;  border: 0.1px solid #000; margin: 3px 0; background-color: ${color}; "></div>`).join('')}</td>
                 <td><img id="productImage" src="${product.image}" alt="Product Image"></td>
                 <td></td>
                 <td></td>
@@ -91,13 +93,14 @@ async function renderData() {
 
             addActionButtons(row, product, count);
             container.appendChild(row);
-            console.log(row);
+            // console.log(row);
         });
 
     } catch (error) {
         console.error('Error rendering data:', error);
     }
 }
+
 
 
 function truncateDescription(description, maxLength = 75) {

@@ -1,4 +1,4 @@
-const userId = "654daad881aeef03266a6de4";
+const API_ENDPOINT = "http://localhost:4001/api/carts"
 
 function getBearerToken() {
     const userString = localStorage.getItem('user');
@@ -14,7 +14,7 @@ function getBearerToken() {
 async function fetchData() {
     try {
         const token = getBearerToken();
-        const response = await fetch('http://localhost:4001/api/carts', {
+        const response = await fetch(API_ENDPOINT, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -158,6 +158,30 @@ async function renderData() {
         console.error('Error fetching or rendering data:', error);
     }
 }
+
+async function hidePreloaderAfterRendering() {
+    try {
+        const token = getBearerToken();
+        const response = await fetch(API_ENDPOINT, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
+        const preloader = document.getElementById("preloder");
+        if (preloader) {
+            preloader.style.display = "none";
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    hidePreloaderAfterRendering();
+});
+
 
 
 document.addEventListener('input', function (event) {
