@@ -84,7 +84,7 @@ function getBearerToken() {
 async function fetchData() {
     try {
         if (!localStorage.getItem('user')) {
-            window.location.href = 'Customer/LoginAndRegister/Login/Login.html';
+            window.location.href = '/Customer/LoginAndRegister/Login/Login.html';
             return;
         }
 
@@ -122,7 +122,7 @@ class CommonHeader extends HTMLElement {
         super();
     }
     connectedCallback() {
-        // var retrievedValue = localStorage.getItem('user');
+        var retrievedValue = localStorage.getItem('user');
         // console.log(retrievedValue);
         fetchData().then(data => {
             let role = "user"
@@ -136,7 +136,7 @@ class CommonHeader extends HTMLElement {
               <div class="row">
                   <div class="col-lg-3 col-md-3">
                       <div class="header__logo">
-                          <a href="../index.html"><img src=" /img/logo.png" alt=""></a>
+                          <a href="../HomePage/Index.html"><img src=" /img/logo.png" alt=""></a>
                       </div>
                   </div>
                   <div class="col-lg-6 col-md-6">
@@ -160,11 +160,11 @@ class CommonHeader extends HTMLElement {
                   <div class="header__nav__option">
                       <a href="#"><i class="fa-solid fa-heart icon_header"></i></a>
                       <a href="/Customer/Cart/listcard.html"><i class="fa-solid fa-cart-shopping icon_header"></i><span>0</span></a>
-                      ${role? `
-                      <a href="../LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon_header"></i></a>
+                      ${retrievedValue === null ? `
+                      <a href="Customer/HomePage/LoginAndRegister/Login/Login.html"><i class="fa-solid fa-right-to-bracket fa-rotate-180 icon_header"></i></a>
                         ` : `
                         <a onclick="logout() "><i class="fa-solid fa-right-to-bracket icon_header"></i></a>
-                        `}  
+                        `}   
                   
               </div>
            

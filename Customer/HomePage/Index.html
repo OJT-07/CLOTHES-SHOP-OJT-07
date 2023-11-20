@@ -12,7 +12,10 @@
 </head>
 
 <body>  
-
+ <!-- Page Preloder -->
+ <div id="preloder">
+    <div class="loader"></div>
+</div>
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="hero__slider owl-carousel">
@@ -212,6 +215,7 @@
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
     <script>
+
         // Function to handle adding a product to the cart
         const addToCart = (productId) => {
             console.log(`${productId}`);
@@ -300,6 +304,21 @@ function showSuccessToast() {
         duration: 3000
     });
 }
+async function hidePreloaderAfterRendering() {
+    try {
+        await renderData(); 
+        const preloader = document.getElementById("preloder");
+        if (preloader) {
+            preloader.style.display = "none";
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    hidePreloaderAfterRendering();
+});
 
 function toast({ title = "", message = "", type = "", duration}) {
     const main = document.getElementById("toast");
