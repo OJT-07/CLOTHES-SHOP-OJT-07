@@ -132,8 +132,7 @@ function showAlert() {
     }).then((result) => {
       // Check if the user clicked the "OK" button
       if (result.isConfirmed) {
-        // Redirect to the specified URL
-        window.location.href = "/Customer/Checkout/viewthanks.html";
+        PostOther()
       }
     });
   }
