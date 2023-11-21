@@ -165,9 +165,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!response.ok) {
         throw new Error("Unable to update data");
       }
-
+      
       const data = await response.json();
       console.log("Item updated:", data);
+      window.location.href = './adminPage.html';
+
       // Handle success after updating
     } catch (error) {
       console.error("Error:", error);
