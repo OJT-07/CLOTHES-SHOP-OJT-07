@@ -1,6 +1,6 @@
 // document.addEventListener("DOMContentLoaded", function() {
 //     const productList = document.getElementById("product-list");
-//     const apiUrl = `http://localhost:4001/api/products`;
+//     const apiUrl = `https://web-api-5vrh.onrender.com/api/products`;
 //     fetch(apiUrl, {
 //             mode: 'cors',
 //             headers: {
@@ -79,7 +79,7 @@ const filterProducts = (products) => {
 
 document.addEventListener("DOMContentLoaded", function(category) {
     const productList = document.getElementById("product-list");
-    const apiUrl = `http://localhost:4001/api/products?category=${category}`;
+    const apiUrl = `https://web-api-5vrh.onrender.com/api/products?category=${category}`;
     fetch(apiUrl, {
             mode: 'cors',
             headers: {

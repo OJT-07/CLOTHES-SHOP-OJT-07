@@ -13,7 +13,7 @@ async function fetchData() {
     const id = urlParams.get("id");
     const token = getBearerToken();
     const response = await fetch(
-      `http://localhost:4001/api/orders/${id}`,
+      `https://web-api-5vrh.onrender.com/api/orders/${id}`,
       {
         method: "GET",
         headers: {

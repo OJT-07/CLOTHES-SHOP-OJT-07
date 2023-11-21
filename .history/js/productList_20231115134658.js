@@ -1,6 +1,6 @@
 // document.addEventListener("DOMContentLoaded", function() {
 //     const productList = document.getElementById("product-list");
-//     const apiUrl = `http://localhost:4001/api/products`;
+//     const apiUrl = `https://web-api-5vrh.onrender.com/api/products`;
 //     fetch(apiUrl, {
 //             mode: 'cors',
 //             headers: {
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let params = new URLSearchParams(document.location.search);
 let name = params.get("name"); 
     const productList = document.getElementById("product-list");
-    const apiUrl = `http://localhost:4001/api/products?category=${category}`;
+    const apiUrl = `https://web-api-5vrh.onrender.com/api/products?category=${category}`;
     fetch(apiUrl, {
             mode: 'cors',
             headers: {

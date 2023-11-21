@@ -31,7 +31,7 @@ const filterBySize = (size) => {
 
 // ============================== Render Data ==============================
 const renderData = async () => {
-  const response = await fetch("http://localhost:4001/api/products");
+  const response = await fetch("https://web-api-5vrh.onrender.com/api/products");
   const data = await response.json();
   const productList = document.getElementById("product-list");
   let dataRender = data.products;
@@ -348,7 +348,7 @@ const addToCart = (productId) => {
     window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
   }
 
-  fetch("http://localhost:4001/api/carts", {
+  fetch("https://web-api-5vrh.onrender.com/api/carts", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

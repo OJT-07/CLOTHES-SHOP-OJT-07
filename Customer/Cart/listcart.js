@@ -1,4 +1,4 @@
-const API_ENDPOINT = "http://localhost:4001/api/carts"
+const API_ENDPOINT = "https://web-api-5vrh.onrender.com/api/carts"
 
 function getBearerToken() {
     const userString = localStorage.getItem('user');
@@ -39,7 +39,7 @@ async function deleteItem(_id) {
     console.log("🚀 ~ file: listcart.js:55 ~ deleteItem ~ _id:", _id)
     try {
         const token = getBearerToken();
-        const response = await fetch(`http://localhost:4001/api/cart-item/${_id}`, {
+        const response = await fetch(`https://web-api-5vrh.onrender.com/api/cart-item/${_id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -240,7 +240,7 @@ async function updateQuantityAndPrice(_id, newQuantity) {
     try {
         const token = getBearerToken();
 
-        const getCartItemById = await fetch(`http://localhost:4001/api/cart-item/${_id}`, {
+        const getCartItemById = await fetch(`https://web-api-5vrh.onrender.com/api/cart-item/${_id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -256,7 +256,7 @@ async function updateQuantityAndPrice(_id, newQuantity) {
 
 
         if (getCartItemById) {
-            const response = await fetch(`http://localhost:4001/api/cart-item/${_id}`, {
+            const response = await fetch(`https://web-api-5vrh.onrender.com/api/cart-item/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -305,7 +305,7 @@ async function updateTotalPrice() {
 
 function updateCartItemSize(itemId, newSizeIndex) {
     const token = getBearerToken();
-    const url = `http://localhost:4001/api/cart-item/${itemId}`;
+    const url = `https://web-api-5vrh.onrender.com/api/cart-item/${itemId}`;
     const data = {
         size: newSizeIndex,
     };
@@ -336,7 +336,7 @@ function updateCartItemSize(itemId, newSizeIndex) {
 async function updateCartItemColor(itemId, newColorIndex) {
     try {
         const token = getBearerToken();
-        const url = `http://localhost:4001/api/cart-item/${itemId}`;
+        const url = `https://web-api-5vrh.onrender.com/api/cart-item/${itemId}`;
         const data = {
             color: newColorIndex,
         };

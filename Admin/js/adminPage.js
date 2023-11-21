@@ -39,7 +39,7 @@ function createButton(text, className) {
 async function fetchData() {
     try {
         const token = getBearerToken();
-        const response = await fetch('http://localhost:4001/api/products', {
+        const response = await fetch('https://web-api-5vrh.onrender.com/api/products', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ function closePopup() {
 async function deleteItem(_id, count) {
     try {
         const token = getBearerToken();
-        const response = await fetch(`http://localhost:4001/api/products/${_id}`, {
+        const response = await fetch(`https://web-api-5vrh.onrender.com/api/products/${_id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,

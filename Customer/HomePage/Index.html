@@ -225,7 +225,7 @@
                 window.location.href = "/Customer/LoginAndRegister/Login/Login.html";
             }
             //Make a POST request to your cart API endpoint
-            fetch('http://localhost:4001/api/carts', {
+            fetch('https://web-api-5vrh.onrender.com/api/carts', {
                 method: 'POST',
                 headers: {
                 'Authorization': `Bearer ${token}`,
@@ -249,7 +249,7 @@
     
         // Fetch products from the API
         const productListContainer = document.getElementById('productList');
-        const apiUrl ="http://localhost:4001/api/products";
+        const apiUrl ="https://web-api-5vrh.onrender.com/api/products";
         fetch(apiUrl, {
             mode: 'cors',
             headers: {

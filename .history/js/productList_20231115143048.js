@@ -1,6 +1,6 @@
 // document.addEventListener("DOMContentLoaded", function() {
 //     const productList = document.getElementById("product-list");
-//     const apiUrl = `http://localhost:4001/api/products`;
+//     const apiUrl = `https://web-api-5vrh.onrender.com/api/products`;
 //     fetch(apiUrl, {
 //             mode: 'cors',
 //             headers: {
@@ -83,7 +83,7 @@ const filterProducts = (category) => {
 //     let category = params.get("category"); 
 //     console.log(category);
 //     const productList = document.getElementById("product-list");
-//     const apiUrl = `http://localhost:4001/api/products`;
+//     const apiUrl = `https://web-api-5vrh.onrender.com/api/products`;
 //     fetch(apiUrl, {
 //         mode: 'cors',
 //         headers: {
@@ -160,7 +160,7 @@ const filterProducts = (category) => {
 
 
 const renderData = async () => {
-	const response = await fetch("http://localhost:4001/api/products");
+	const response = await fetch("https://web-api-5vrh.onrender.com/api/products");
 	const data = await response.json();
 	const productList = document.getElementById("product-list");
 	let dataRender;

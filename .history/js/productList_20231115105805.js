@@ -1,7 +1,7 @@
 function initialProductList() {
     document.addEventListener("DOMContentLoaded", function() {
         const productList = document.getElementById("product-list");
-        const apiUrl = "http://localhost:4001/api/products";
+        const apiUrl = "https://web-api-5vrh.onrender.com/api/products";
         fetch(apiUrl, {
                 mode: 'cors',
                 headers: {
@@ -78,7 +78,7 @@ function initialProductList() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const productList = document.getElementById("collapseOne");
-    const apiUrl = "http://localhost:4001/api/products";
+    const apiUrl = "https://web-api-5vrh.onrender.com/api/products";
     fetch(apiUrl, {
             mode: 'cors',
             headers: {
