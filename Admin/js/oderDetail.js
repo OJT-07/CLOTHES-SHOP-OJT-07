@@ -113,7 +113,7 @@ async function renderData() {
   }
 }
 
-renderData();
+// renderData();
 
 async function hidePreloaderAfterRendering() {
   try {
