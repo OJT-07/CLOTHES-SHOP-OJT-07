@@ -11,7 +11,7 @@ class CommonFooter extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
       
-<link rel="stylesheet" href="../CSS/footer.css">
+<link rel="stylesheet" href="https://sprint2--shop-men-fashion.netlify.app/Customer/CSS/footer.css">
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -130,7 +130,7 @@ class CommonHeader extends HTMLElement {
            
             this.innerHTML = `
             <script src="/Customer/LoginAndRegister/Login/logout.js"></script>
-            <link rel="stylesheet" href="../CSS/header.css">
+            <link rel="stylesheet" href="https://sprint2--shop-men-fashion.netlify.app/Customer/CSS/header.css">
             <header class="header">
 
           <div class="container">
