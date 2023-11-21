@@ -66,17 +66,36 @@ function updateColorInput() {
 // Example: Adding a button to remove the last color
 document
   .getElementById("removeLastColorButton")
-  .addEventListener("click", function () {
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của nút
     selectedColors.pop();
     updateColorInput();
+
+    // Kiểm tra nếu sự kiện đến từ nút removeLastColorButton thì không chuyển hướng
+    if (event.target.id === "removeLastColorButton") {
+      return;
+    }
+
+    // Thực hiện chuyển hướng ở đây nếu không phải từ nút removeLastColorButton
+    window.location.href = './adminPage.html';
   });
 
 document
   .getElementById("removeAllColorButton")
-  .addEventListener("click", function () {
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của nút
     selectedColors = [];
     updateColorInput();
+
+    // Kiểm tra nếu sự kiện đến từ nút removeAllColorButton thì không chuyển hướng
+    if (event.target.id === "removeAllColorButton") {
+      return;
+    }
+
+    // Thực hiện chuyển hướng ở đây nếu không phải từ nút removeAllColorButton
+    window.location.href = './adminPage.html';
   });
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -167,9 +186,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       
       const data = await response.json();
+      
       console.log("Item updated:", data);
-      window.location.href = './adminPage.html';
-
+      if (event.submitter && event.submitter.type === "submit") {
+        window.location.href = './adminPage.html';
+      }
+      
       // Handle success after updating
     } catch (error) {
       console.error("Error:", error);
@@ -177,9 +199,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-
-      
- 
 
 function updateImageValue(inputElement) {
   var imageUrl = inputElement.value;
