@@ -145,14 +145,7 @@ class CommonHeader extends HTMLElement {
                       <ul class="headerAll">
                           <li ><a href="/Customer/HomePage/">Home</a></li>
                           <li><a href="/Customer/Product/productList.html">Shop</a></li>
-                          <li><a href="#">Pages</a>
-                              <ul class="dropdown">
-                                 
-                                  <li><a href="/Customer/Master Page/contactUs.html">Contact Us</a></li>
-                                  <li><a href="/Customer/Checkout/index.html">Check Out</a></li>
-                              </ul>
-                          </li>
-                          </li>
+                           <li><a href="/Customer/Master Page/contactUs.html">Contact Us</a></li>
                             ${role === "admin" ? '<li ><a href="../../Admin/adminPage.html">Admin</a></li>' : ''}
                       </ul>
                   </nav>
