@@ -3,7 +3,7 @@ const filterProducts = (category) => {
 }
 
 const renderData = async () => {
-	const response = await fetch("http://localhost:4001/api/products");
+	const response = await fetch("https://web-api-5vrh.onrender.com/api/products");
 	const data = await response.json();
 	const productList = document.getElementById("product-list");
 	let dataRender;

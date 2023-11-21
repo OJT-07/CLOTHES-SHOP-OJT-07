@@ -92,7 +92,7 @@ document.getElementById("registrationForm").addEventListener("submit", function(
 
   
   //goi api
-  const apiUrl = "http://localhost:4001/api/auth/register";
+  const apiUrl = "https://web-api-5vrh.onrender.com/api/auth/register";
   const formData = {
     name: fullname,
     phone: phone,

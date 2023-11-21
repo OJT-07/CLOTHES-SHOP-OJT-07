@@ -135,7 +135,7 @@ function createProduct() {
 
     const token = getBearerToken();
 
-    fetch('http://localhost:4001/api/products', {
+    fetch('https://web-api-5vrh.onrender.com/api/products', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,

@@ -10,7 +10,7 @@ function getBearerToken() {
 async function fetchData() {
     try {
         const token = getBearerToken();
-        const response = await fetch(`http://localhost:4001/api/orders/${orders._id}`, {
+        const response = await fetch(`https://web-api-5vrh.onrender.com/api/orders/${orders._id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

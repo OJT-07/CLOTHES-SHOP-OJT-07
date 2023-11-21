@@ -12,7 +12,7 @@ let cartItemIds = [];
 async function fetchData() {
     try {
         const token = getBearerToken();
-        const response = await fetch('http://localhost:4001/api/carts', {
+        const response = await fetch('https://web-api-5vrh.onrender.com/api/carts', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const phone = document.getElementById("phone");
     const email = document.getElementById("email");
     try {
-        const response = await fetch('http://localhost:4001/api/auth/get_me', {
+        const response = await fetch('https://web-api-5vrh.onrender.com/api/auth/get_me', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -138,7 +138,7 @@ function showAlert() {
   }
 function PostOther() {
     const token = getBearerToken();
-    const url = `http://localhost:4001/api/orders`;
+    const url = `https://web-api-5vrh.onrender.com/api/orders`;
 
     fetch(url, {
         method: 'POST',
