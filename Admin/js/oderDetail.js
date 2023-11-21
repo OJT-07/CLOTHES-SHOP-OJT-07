@@ -75,7 +75,7 @@ async function renderData() {
             </div>
             <div class="flex-lg-grow-1 ms-3">
               <h6 class="small mb-0"><a href="#" id="${uniqueId}" class="text-reset">${productDetail.productId.name}</a></h6>
-              <span class="small">Color: ${productDetail.color}</span>
+              <div style="width: 100px; height: 30px; border-radius: 5px; overflow: hidden;  border: 0.1px solid #000; margin: 3px 0; background-color: ${productDetail.color}; "></div>
             </div>
           </div>
         </td>
